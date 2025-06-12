@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HR Analytics Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('analyticsChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Turnover', 'Tenure', 'Absence', 'Performance'],
+          datasets: [{
+            label: 'HR Metrics',
+            data: [
+              Math.random() * 10,
+              2.3,
+              Math.random() * 3,
+              Math.random() * 100
+            ],
+            backgroundColor: ['#60A5FA', '#34D399', '#FBBF24', '#818CF8']
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    });
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6 font-sans">
+
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white shadow-md rounded-xl p-6 transition-all transform duration-300 hover:scale-105 hover:bg-blue-50 cursor-pointer">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <span>📊</span> HR Analytics
+      </h2>
+      <ul class="space-y-2 text-gray-700">
+        <li>Employee Turnover Rate: <strong>7.5%</strong></li>
+        <li>Average Tenure: <strong>2.3 years</strong></li>
+        <li>Gender Ratio: <strong>50% Male / 50% Female</strong></li>
+        <li>Open Positions: <strong>3</strong></li>
+        <li>Absence Rate: <strong>1.8%</strong></li>
+        <li>Average Performance Score: <strong>87/100</strong></li>
+      </ul>
+
+      <div class="mt-6">
+        <canvas id="analyticsChart" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

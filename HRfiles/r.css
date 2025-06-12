@@ -1,0 +1,125 @@
+.card {
+  background: var(--card-bg);
+  border-radius: 18px;
+  box-shadow: 0 2px 16px var(--shadow-color);
+  padding: 1.5rem;
+  min-width: 900px;
+  max-width: 1100px;
+  margin: 2rem auto 2rem;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+}
+
+.search-bar,
+.add-button {
+  margin-bottom: 20px;
+}
+
+.add-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.table thead th {
+  text-align: left;
+  font-weight: 600;
+  padding: var(--text-secondary);
+  font-size: 14px;
+}
+
+.table tbody td {
+  background: var(--card-bg);
+  padding: 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.table tbody tr {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(60, 72, 88, 0.04);
+  transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+  box-shadow: 0 4px 20px rgba(66, 153, 225, 0.25);
+  transform: translateY(-2px);
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.badge-open {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+.badge-closed {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+.badge-pending {
+  background-color: #e5e7eb;
+  color: #6b7280;
+}
+.badge-ongoing {
+  background-color: #bae6fd;
+  color: #0369a1;
+}
+.badge-completed {
+  background-color: #bbf7d0;
+  color: #15803d;
+}
+
+.edit-btn,
+.save-btn,
+.cancel-btn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 4px;
+  font-size: 13px;
+}
+
+.save-btn {
+  background-color: #3b82f6;
+}
+.cancel-btn {
+  background-color: #ef4444;
+}
+
+input.inline-input {
+  width: 100px;
+  padding: 5px;
+  font-size: 13px;
+}

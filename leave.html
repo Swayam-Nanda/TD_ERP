@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leave Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fc;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .card {
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.01);
+    }
+    .card-header {
+      background: transparent;
+      border-bottom: none;
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .controls .form-control,
+    .controls .form-select {
+      max-width: 200px;
+    }
+    table th {
+      background-color: #f1f3f9;
+    }
+    table td, table th {
+      text-align: center;
+      vertical-align: middle;
+    }
+    .table-hover tbody tr:hover {
+      background-color: #e6f2ff !important;
+      transform: scale(1.01);
+      cursor: pointer;
+    }
+    .table tbody tr {
+      background: #f7f9fb;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(60,72,88,0.04);
+      transition: all 0.3s ease;
+    }
+    .table tbody tr:hover {
+      box-shadow: 0 4px 20px rgba(66,153,225,0.25);
+      transform: translateY(-2px);
+    }
+    .badge {
+      transition: transform 0.3s;
+    }
+    .badge:hover {
+      transform: scale(1.1);
+    }
+    .badge.approved {
+      background-color: #d1f7d6;
+      color: #198754;
+    }
+    .badge.pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    .badge.rejected {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .btn-pdf {
+      background-color: #6366f1;
+      color: white;
+    }
+    .btn-pdf:hover {
+      background-color: #4f46e5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container my-5">
+  <div class="card p-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="card-header p-0 border-0 bg-transparent">
+        <span><i class="fas fa-clipboard-list me-2 text-primary"></i>Leave Management</span>
+      </div>
+      <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="fas fa-plus me-1"></i>Add
+      </button>
+    </div>
+    <div class="d-flex gap-2 flex-wrap controls mb-2">
+      <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search name">
+      <select id="filterType" class="form-select form-select-sm">
+        <option value="">All Types</option>
+        <option value="CL">CL</option>
+        <option value="SL">SL</option>
+        <option value="EL">EL</option>
+      </select>
+      <button class="btn btn-sm btn-pdf" onclick="downloadPDF()"><i class="fas fa-file-pdf me-1"></i>Download PDF</button>
+    </div>
+    <div class="card-body pt-3">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle text-center" id="leaveTable">
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th>Type</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Status</th>
+              <th>Balance</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rohit Sharma</td><td>CL</td><td>2025-06-01</td><td>2025-06-02</td><td><span class="badge approved">Approved</span></td><td>10</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Priya Singh</td><td>SL</td><td>2025-06-05</td><td>2025-06-06</td><td><span class="badge pending">Pending</span></td><td>8</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Amit Kumar</td><td>CL</td><td>2025-06-07</td><td>2025-06-07</td><td><span class="badge rejected">Rejected</span></td><td>12</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Simran Kaur</td><td>EL</td><td>2025-06-10</td><td>2025-06-12</td><td><span class="badge approved">Approved</span></td><td>7</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Vikas Yadav</td><td>CL</td><td>2025-06-08</td><td>2025-06-08</td><td><span class="badge approved">Approved</span></td><td>6</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Neha Jain</td><td>SL</td><td>2025-06-09</td><td>2025-06-09</td><td><span class="badge pending">Pending</span></td><td>9</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Karan Verma</td><td>EL</td><td>2025-06-15</td><td>2025-06-18</td><td><span class="badge approved">Approved</span></td><td>5</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Anita Mehra</td><td>CL</td><td>2025-06-13</td><td>2025-06-13</td><td><span class="badge pending">Pending</span></td><td>11</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Rajesh Khanna</td><td>SL</td><td>2025-06-14</td><td>2025-06-15</td><td><span class="badge rejected">Rejected</span></td><td>4</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Sneha Das</td><td>CL</td><td>2025-06-11</td><td>2025-06-11</td><td><span class="badge approved">Approved</span></td><td>8</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+            <tr>
+              <td>Manoj Tiwari</td><td>EL</td><td>2025-06-20</td><td>2025-06-22</td><td><span class="badge pending">Pending</span></td><td>10</td><td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="addEmployeeForm" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addModalLabel">Add Employee Leave</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-2">
+          <label class="form-label">Employee Name</label>
+          <input type="text" class="form-control" name="employee" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Type</label>
+          <select class="form-select" name="type" required>
+            <option value="">Select Type</option>
+            <option value="CL">CL</option>
+            <option value="SL">SL</option>
+            <option value="EL">EL</option>
+          </select>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">From</label>
+          <input type="date" class="form-control" name="from" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">To</label>
+          <input type="date" class="form-control" name="to" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Status</label>
+          <select class="form-select" name="status" required>
+            <option value="approved">Approved</option>
+            <option value="pending">Pending</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Balance</label>
+          <input type="number" class="form-control" name="balance" min="0" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Add</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script>
+  function downloadPDF() {
+    const element = document.querySelector('.card');
+    html2pdf().from(element).save('leave-management.pdf');
+  }
+
+  document.getElementById('searchInput').addEventListener('input', filterTable);
+  document.getElementById('filterType').addEventListener('change', filterTable);
+
+  function filterTable() {
+    const name = document.getElementById('searchInput').value.toLowerCase();
+    const type = document.getElementById('filterType').value;
+    const rows = document.querySelectorAll('#leaveTable tbody tr');
+
+    rows.forEach(row => {
+      const nameCell = row.children[0].textContent.toLowerCase();
+      const typeCell = row.children[1].textContent;
+      const match = nameCell.includes(name) && (type === '' || type === typeCell);
+      row.style.display = match ? '' : 'none';
+    });
+  }
+
+  document.getElementById('addEmployeeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const employee = form.employee.value.trim();
+    const type = form.type.value;
+    const from = form.from.value;
+    const to = form.to.value;
+    const status = form.status.value;
+    const balance = form.balance.value;
+
+    if (!employee || !type || !from || !to || !status || balance === '') return;
+
+    let badgeClass = status === 'approved' ? 'approved' : status === 'pending' ? 'pending' : 'rejected';
+    let badgeLabel = status.charAt(0).toUpperCase() + status.slice(1);
+
+    const tbody = document.querySelector('#leaveTable tbody');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+      <td>${employee}</td>
+      <td>${type}</td>
+      <td>${from}</td>
+      <td>${to}</td>
+      <td><span class="badge ${badgeClass}">${badgeLabel}</span></td>
+      <td>${balance}</td>
+      <td><button class="btn btn-sm btn-primary edit-btn">Edit</button></td>
+    `;
+    tbody.appendChild(newRow);
+
+    const addModal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
+    addModal.hide();
+    form.reset();
+    filterTable();
+  });
+
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('edit-btn')) {
+      const row = e.target.closest('tr');
+      const cells = row.querySelectorAll('td');
+      for (let i = 0; i < cells.length - 2; i++) {
+        const text = cells[i].textContent.trim();
+        cells[i].innerHTML = `<input class="form-control form-control-sm" value="${text}">`;
+      }
+      const badge = row.querySelector('.badge');
+      const statusVal = badge ? badge.textContent.trim().toLowerCase() : '';
+      const select = `<select class="form-select form-select-sm">
+                        <option value="approved" ${statusVal === 'approved' ? 'selected' : ''}>Approved</option>
+                        <option value="pending" ${statusVal === 'pending' ? 'selected' : ''}>Pending</option>
+                        <option value="rejected" ${statusVal === 'rejected' ? 'selected' : ''}>Rejected</option>
+                      </select>`;
+      cells[4].innerHTML = select;
+      e.target.textContent = "Save";
+      e.target.classList.remove('edit-btn');
+      e.target.classList.add('save-btn');
+    } else if (e.target.classList.contains('save-btn')) {
+      const row = e.target.closest('tr');
+      const cells = row.querySelectorAll('td');
+      const values = [];
+      for (let i = 0; i < cells.length - 2; i++) {
+        const input = cells[i].querySelector('input');
+        values.push(input ? input.value : '');
+      }
+      const statusVal = cells[4].querySelector('select').value;
+      const badgeClass = statusVal === 'approved' ? 'approved' : statusVal === 'pending' ? 'pending' : 'rejected';
+      const badgeLabel = statusVal.charAt(0).toUpperCase() + statusVal.slice(1);
+      cells[0].innerHTML = values[0];
+      cells[1].innerHTML = values[1];
+      cells[2].innerHTML = values[2];
+      cells[3].innerHTML = values[3];
+      cells[4].innerHTML = `<span class="badge ${badgeClass}">${badgeLabel}</span>`;
+      cells[5].innerHTML = values[5];
+      e.target.textContent = "Edit";
+      e.target.classList.remove('save-btn');
+      e.target.classList.add('edit-btn');
+    }
+  });
+</script>
+
+</body>
+</html>

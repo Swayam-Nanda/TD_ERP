@@ -1,0 +1,119 @@
+.main-container {
+  background: var(--card-bg);
+  border-radius: 18px;
+  box-shadow: 0 2px 16px var(--shadow-color);
+  padding: 1.5rem;
+  max-width: 1100px;
+  margin: 2rem auto 2rem;
+}
+.header {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.table-container {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 1px 10px var(--shadow-color);
+  padding: 1rem 0 0.5rem;
+  overflow-x: auto;
+}
+.table {
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  width: 100%;
+  --bs-table-bg: color-mix(in oklab, #ffffff 3%, transparent);
+  --bs-table-color: var(--text-primary);
+}
+.table tbody {
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+.table thead th {
+  border-bottom: 2px solid var(--border-color);
+  color: var(--text-secondary);
+  font-weight: 600;
+  background: none;
+}
+.table tbody tr {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 1px 4px var(--shadow-color);
+  transition: all var(--transition-speed) ease;
+}
+.table tbody tr:hover {
+  box-shadow: 0 4px 20px rgba(66, 153, 225, 0.25); /* Optional: Keep as is or use a variable if you define it */
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+.table td,
+.table th {
+  background: var(--card-bg);
+  vertical-align: middle;
+  padding: 1rem;
+  border: none;
+}
+.avatar-name {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--card-bg);
+  box-shadow: 0 1px 4px var(--shadow-color);
+}
+.emp-details {
+  display: flex;
+  flex-direction: column;
+}
+.emp-name {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+}
+.emp-role {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.status-badge {
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 14px;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+.status-active {
+  background: #e7f9ef;
+  color: var(--success-color);
+}
+.status-inactive {
+  background: #ffeaea;
+  color: var(--danger-color);
+}
+.status-probation {
+  background: #fff8e1;
+  color: var(--warning-color);
+}
+.edit-btn {
+  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+}
+@media (max-width: 768px) {
+  .table td,
+  .table th {
+    padding: 0.75rem 0.5rem;
+  }
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+}

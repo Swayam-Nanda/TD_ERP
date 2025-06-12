@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recruitment & Onboarding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f9f9f9;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.01);
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #1f2937;
+    }
+
+    .search-bar, .add-button {
+      margin-bottom: 20px;
+    }
+
+    .add-button {
+      background-color: #3b82f6;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-left: 20px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 8px;
+    }
+
+    .table thead th {
+      text-align: left;
+      font-weight: 600;
+      padding: 12px;
+      color: #4b5563;
+      font-size: 14px;
+    }
+
+    .table tbody td {
+      background: #fff;
+      padding: 12px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .table tbody tr {
+      background: #f7f9fb;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(60,72,88,0.04);
+      transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+      box-shadow: 0 4px 20px rgba(66,153,225,0.25);
+      transform: translateY(-2px);
+    }
+
+    .badge {
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .badge-open { background-color: #fef3c7; color: #92400e; }
+    .badge-closed { background-color: #e5e7eb; color: #374151; }
+    .badge-pending { background-color: #e5e7eb; color: #6b7280; }
+    .badge-ongoing { background-color: #bae6fd; color: #0369a1; }
+    .badge-completed { background-color: #bbf7d0; color: #15803d; }
+
+    .edit-btn, .save-btn, .cancel-btn {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 4px;
+      font-size: 13px;
+    }
+
+    .save-btn { background-color: #3b82f6; }
+    .cancel-btn { background-color: #ef4444; }
+
+    input.inline-input {
+      width: 100px;
+      padding: 5px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="title">
+      👥 Recruitment & Onboarding
+    </div>
+
+    <input type="text" class="search-bar" placeholder="🔍 Search position...">
+    <button class="add-button" onclick="addNewRow()">➕ Add</button>
+
+    <table class="table" id="recruitment-table">
+      <thead>
+        <tr>
+          <th>💼 Position</th>
+          <th>👥 Applicants</th>
+          <th>👤 Hired</th>
+          <th>📺 Status</th>
+          <th>🌀 Onboarding</th>
+          <th>👩‍💼 HR</th>
+          <th>✏️ Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <tr>
+          <td>Software Engineer</td>
+          <td>12</td>
+          <td>1</td>
+          <td><span class="badge badge-open">Open</span></td>
+          <td><span class="badge badge-ongoing">Ongoing</span></td>
+          <td>Priya</td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Sales Manager</td>
+          <td>8</td>
+          <td>0</td>
+          <td><span class="badge badge-open">Open</span></td>
+          <td><span class="badge badge-pending">Pending</span></td>
+          <td>Aryan</td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>UI Designer</td>
+          <td>6</td>
+          <td>1</td>
+          <td><span class="badge badge-closed">Closed</span></td>
+          <td><span class="badge badge-completed">Completed</span></td>
+          <td>Simran</td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Accountant</td>
+          <td>5</td>
+          <td>1</td>
+          <td><span class="badge badge-closed">Closed</span></td>
+          <td><span class="badge badge-completed">Completed</span></td>
+          <td>Vikas</td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Support Executive</td>
+          <td>9</td>
+          <td>2</td>
+          <td><span class="badge badge-open">Open</span></td>
+          <td><span class="badge badge-ongoing">Ongoing</span></td>
+          <td>Neha</td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Tester</td>
+          <td>7</td>
+          <td>0</td>
+          <td><span class="badge badge-open">Open</span></td>
+          <td><span class="badge badge-pending">Pending</span></td>
+          <td>Priya</td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Business Analyst</td>
+          <td>10</td>
+          <td>2</td>
+          <td><span class="badge badge-open">Open</span></td>
+          <td><span class="badge badge-ongoing">Ongoing</span></td>
+          <td>Raj</td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>HR Intern</td>
+          <td>3</td>
+          <td>1</td>
+          <td><span class="badge badge-open">Open</span></td>
+          <td><span class="badge badge-pending">Pending</span></td>
+          <td>Sneha</td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Marketing Lead</td>
+          <td>11</td>
+          <td>2</td>
+          <td><span class="badge badge-closed">Closed</span></td>
+          <td><span class="badge badge-completed">Completed</span></td>
+          <td>Tanvi</td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function addNewRow() {
+      const tbody = document.getElementById("table-body");
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td><input class="inline-input" placeholder="Position"></td>
+        <td><input class="inline-input" type="number" min="0"></td>
+        <td><input class="inline-input" type="number" min="0"></td>
+        <td><input class="inline-input" placeholder="Status"></td>
+        <td><input class="inline-input" placeholder="Onboarding"></td>
+        <td><input class="inline-input" placeholder="HR"></td>
+        <td>
+          <button class="save-btn" onclick="saveRow(this)">Save</button>
+          <button class="cancel-btn" onclick="this.closest('tr').remove()">Cancel</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    }
+
+    function editRow(btn) {
+      const row = btn.closest("tr");
+      const cells = row.querySelectorAll("td");
+
+      const data = [...cells].slice(0, 6).map(td => td.innerText || td.textContent.trim());
+      const badgeTexts = [
+        cells[3].querySelector("span")?.innerText || "",
+        cells[4].querySelector("span")?.innerText || ""
+      ];
+
+      cells[0].innerHTML = `<input class="inline-input" value="${data[0]}">`;
+      cells[1].innerHTML = `<input class="inline-input" type="number" value="${data[1]}">`;
+      cells[2].innerHTML = `<input class="inline-input" type="number" value="${data[2]}">`;
+      cells[3].innerHTML = `<input class="inline-input" value="${badgeTexts[0]}">`;
+      cells[4].innerHTML = `<input class="inline-input" value="${badgeTexts[1]}">`;
+      cells[5].innerHTML = `<input class="inline-input" value="${data[5]}">`;
+      cells[6].innerHTML = `
+        <button class="save-btn" onclick="saveRow(this)">Save</button>
+        <button class="cancel-btn" onclick="location.reload()">Cancel</button>
+      `;
+    }
+
+    function saveRow(btn) {
+      const row = btn.closest("tr");
+      const inputs = row.querySelectorAll("input");
+
+      const values = [...inputs].map(input => input.value.trim());
+
+      row.innerHTML = `
+        <td>${values[0]}</td>
+        <td>${values[1]}</td>
+        <td>${values[2]}</td>
+        <td><span class="badge badge-open">${values[3]}</span></td>
+        <td><span class="badge badge-ongoing">${values[4]}</span></td>
+        <td>${values[5]}</td>
+        <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+      `;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Performance Appraisal</title>
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #f8f9fc;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .appraisal-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 30px;
+      margin: 50px auto;
+      max-width: 1200px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .appraisal-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 30px rgba(100, 180, 255, 0.4);
+    }
+
+    .table-hover tbody tr {
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #d7edff !important;
+      transform: scale(1.01);
+      cursor: pointer;
+    }
+
+    .badge-excellent {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .badge-good {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-average {
+      background-color: #fcd34d;
+      color: #78350f;
+    }
+
+    .badge-promotion-yes {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+
+    .badge-promotion-no {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-add {
+      margin-bottom: 15px;
+    }
+
+    input[type="text"], input[type="number"], input[type="date"] {
+      width: 100%;
+      padding: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container appraisal-card">
+    <h3 class="mb-4 fw-semibold text-dark">📊 Performance Appraisal</h3>
+    <button class="btn btn-primary btn-add" onclick="addNewRow()">➕ Add</button>
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle" id="appraisalTable">
+        <thead class="table-light">
+          <tr>
+            <th>Employee</th>
+            <th>Last Review</th>
+            <th>Score</th>
+            <th>Rating</th>
+            <th>Promotion</th>
+            <th>Remarks</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rohit Sharma</td>
+            <td>2025-04-15</td>
+            <td>92</td>
+            <td><span class="badge rounded-pill badge-excellent">Excellent</span></td>
+            <td><span class="badge rounded-pill badge-promotion-yes">Yes</span></td>
+            <td>Leadership</td>
+            <td><button class="btn btn-sm btn-warning" onclick="editRow(this)">✏️ Edit</button></td>
+          </tr>
+          <tr>
+            <td>Priya Singh</td>
+            <td>2025-04-15</td>
+            <td>90</td>
+            <td><span class="badge rounded-pill badge-excellent">Excellent</span></td>
+            <td><span class="badge rounded-pill badge-promotion-no">No</span></td>
+            <td>Team Player</td>
+            <td><button class="btn btn-sm btn-warning" onclick="editRow(this)">✏️ Edit</button></td>
+          </tr>
+          <tr>
+            <td>Amit Kumar</td>
+            <td>2025-04-15</td>
+            <td>82</td>
+            <td><span class="badge rounded-pill badge-good">Good</span></td>
+            <td><span class="badge rounded-pill badge-promotion-no">No</span></td>
+            <td>Learning Fast</td>
+            <td><button class="btn btn-sm btn-warning" onclick="editRow(this)">✏️ Edit</button></td>
+          </tr>
+          <tr>
+            <td>Simran Kaur</td>
+            <td>2025-04-15</td>
+            <td>88</td>
+            <td><span class="badge rounded-pill badge-good">Good</span></td>
+            <td><span class="badge rounded-pill badge-promotion-no">No</span></td>
+            <td>Creative</td>
+            <td><button class="btn btn-sm btn-warning" onclick="editRow(this)">✏️ Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function addNewRow() {
+      const tbody = document.querySelector('#appraisalTable tbody');
+      const newRow = document.createElement('tr');
+
+      newRow.innerHTML = `
+        <td><input type="text" placeholder="Employee Name"></td>
+        <td><input type="date"></td>
+        <td><input type="number" min="0" max="100"></td>
+        <td><input type="text" placeholder="Rating"></td>
+        <td><input type="text" placeholder="Yes/No"></td>
+        <td><input type="text" placeholder="Remarks"></td>
+        <td>
+          <button class="btn btn-sm btn-success" onclick="saveRow(this)">💾 Save</button>
+          <button class="btn btn-sm btn-danger" onclick="cancelRow(this)">✖ Cancel</button>
+        </td>
+      `;
+      tbody.prepend(newRow);
+    }
+
+    function editRow(button) {
+      const row = button.closest('tr');
+      const cells = row.querySelectorAll('td');
+      const values = Array.from(cells).slice(0, 6).map(cell => cell.innerText.trim());
+
+      const ratingBadge = cells[3].querySelector('span')?.innerText || values[3];
+      const promotionBadge = cells[4].querySelector('span')?.innerText || values[4];
+
+      row.innerHTML = `
+        <td><input type="text" value="${values[0]}"></td>
+        <td><input type="date" value="${values[1]}"></td>
+        <td><input type="number" value="${values[2]}" min="0" max="100"></td>
+        <td><input type="text" value="${ratingBadge}"></td>
+        <td><input type="text" value="${promotionBadge}"></td>
+        <td><input type="text" value="${values[5]}"></td>
+        <td>
+          <button class="btn btn-sm btn-success" onclick="saveRow(this)">💾 Save</button>
+          <button class="btn btn-sm btn-secondary" onclick="location.reload()">↩ Cancel</button>
+        </td>
+      `;
+    }
+
+    function saveRow(button) {
+      const row = button.closest('tr');
+      const inputs = row.querySelectorAll('input');
+      const values = Array.from(inputs).map(input => input.value.trim());
+
+      const ratingClass = values[3].toLowerCase() === 'excellent' ? 'badge-excellent'
+                        : values[3].toLowerCase() === 'good' ? 'badge-good'
+                        : 'badge-average';
+
+      const promoClass = values[4].toLowerCase() === 'yes' ? 'badge-promotion-yes' : 'badge-promotion-no';
+
+      row.innerHTML = `
+        <td>${values[0]}</td>
+        <td>${values[1]}</td>
+        <td>${values[2]}</td>
+        <td><span class="badge rounded-pill ${ratingClass}">${values[3]}</span></td>
+        <td><span class="badge rounded-pill ${promoClass}">${values[4]}</span></td>
+        <td>${values[5]}</td>
+        <td><button class="btn btn-sm btn-warning" onclick="editRow(this)">✏️ Edit</button></td>
+      `;
+    }
+
+    function cancelRow(button) {
+      const row = button.closest('tr');
+      row.remove();
+    }
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

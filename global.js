@@ -65,10 +65,10 @@ document.addEventListener("click", (e) => {
 });
 
 // Dark mode toggle
-const darkModeToggleBtn = document.querySelector(
+let darkModeToggleBtn = document.querySelector(
   '.topbar-action-btn[aria-label="Dark mode"]'
 );
-const lightModeToggleBtn = document.querySelector(
+let lightModeToggleBtn = document.querySelector(
   '.topbar-action-btn[aria-label="Light mode"]'
 );
 
@@ -76,6 +76,7 @@ function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
   const isDark = document.body.classList.contains("dark-mode");
   localStorage.setItem("darkMode", isDark);
+  window.dispatchEvent(new Event("themeChanged"));
   // Optional: Swap icons if you want to show only one at a time
   if (isDark) {
     darkModeToggleBtn.style.display = "none";

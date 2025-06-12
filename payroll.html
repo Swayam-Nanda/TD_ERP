@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payroll Management</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fbfd;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .payroll-container {
+      width: 100%;
+      max-width: 1100px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .payroll-container:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px 4px #90caf9;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .add-form {
+      margin-bottom: 20px;
+      display: none;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .add-form input {
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .add-form button {
+      padding: 8px 16px;
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 16px 12px;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: #444;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+
+    tbody tr:hover {
+      background-color: #e6f4ff;
+    }
+
+    .status-paid {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #d1fae5;
+      color: #047857;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .edit-btn {
+      background: #0d6efd;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .edit-btn:focus {
+      outline: none;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .toggle-add-btn {
+      background: #198754;
+      color: white;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="payroll-container">
+    <div class="top-bar">
+      <h2>📋 Payroll Management</h2>
+      <button class="toggle-add-btn" onclick="toggleAddForm()">+ Add</button>
+    </div>
+
+    <form class="add-form" id="addForm" onsubmit="addRow(event)">
+      <input type="text" id="name" placeholder="Employee" required>
+      <input type="text" id="month" placeholder="Month" required>
+      <input type="text" id="gross" placeholder="Gross" required>
+      <input type="text" id="deductions" placeholder="Deductions" required>
+      <input type="text" id="net" placeholder="Net" required>
+      <button type="submit">Add</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Employee</th><th>Month</th><th>Gross</th><th>Deductions</th><th>Net</th><th>Status</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="payrollBody">
+        <tr>
+          <td>Rohit Sharma</td><td>May</td><td>₹80,000</td><td>₹8,000</td><td>₹72,000</td><td><span class="status-paid">Paid</span></td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Priya Singh</td><td>May</td><td>₹60,000</td><td>₹5,000</td><td>₹55,000</td><td><span class="status-paid">Paid</span></td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Amit Kumar</td><td>May</td><td>₹45,000</td><td>₹3,000</td><td>₹42,000</td><td><span class="status-paid">Paid</span></td>
+          <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function toggleAddForm() {
+      const form = document.getElementById("addForm");
+      form.style.display = form.style.display === "flex" ? "none" : "flex";
+      form.style.flexWrap = "wrap";
+    }
+
+    function addRow(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const month = document.getElementById("month").value;
+      const gross = document.getElementById("gross").value;
+      const deductions = document.getElementById("deductions").value;
+      const net = document.getElementById("net").value;
+
+      const tbody = document.getElementById("payrollBody");
+      const tr = document.createElement("tr");
+
+      tr.innerHTML = `
+        <td>${name}</td>
+        <td>${month}</td>
+        <td>${gross}</td>
+        <td>${deductions}</td>
+        <td>${net}</td>
+        <td><span class="status-paid">Paid</span></td>
+        <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+      `;
+
+      tbody.appendChild(tr);
+      document.getElementById("addForm").reset();
+    }
+
+    function editRow(btn) {
+      const row = btn.parentElement.parentElement;
+      for (let i = 0; i < 5; i++) {
+        const td = row.children[i];
+        const oldValue = td.innerText;
+        td.innerHTML = `<input type="text" value="${oldValue}" style="width: 100%; padding: 4px;" />`;
+      }
+      btn.innerText = "Save";
+      btn.onclick = function () {
+        for (let i = 0; i < 5; i++) {
+          const input = row.children[i].querySelector("input");
+          row.children[i].innerText = input.value;
+        }
+        btn.innerText = "Edit";
+        btn.onclick = function () {
+          editRow(btn);
+        };
+      };
+    }
+  </script>
+
+</body>
+</html>
