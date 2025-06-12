@@ -1,22 +1,25 @@
 // Sidebar collapse/expand (handles both desktop and mobile)
-const sidebar = document.getElementById("sidebar");
-const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
-let collapsed = false;
+document.addEventListener("DOMContentLoaded", function () {
+  // Your sidebar toggle code here
 
-function toggleSidebar() {
-  if (window.innerWidth <= 800) {
-    // On mobile: toggle the .open class to slide sidebar in/out
-    sidebar.classList.toggle("open");
-  } else {
-    // On desktop: toggle the .collapsed class to shrink/expand sidebar
-    collapsed = !collapsed;
-    sidebar.classList.toggle("collapsed", collapsed);
+  const sidebar = document.getElementById("sidebar");
+  const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
+  let collapsed = false;
+
+  function toggleSidebar() {
+    if (window.innerWidth <= 800) {
+      // On mobile: toggle the .open class to slide sidebar in/out
+      sidebar.classList.toggle("open");
+    } else {
+      // On desktop: toggle the .collapsed class to shrink/expand sidebar
+      collapsed = !collapsed;
+      sidebar.classList.toggle("collapsed", collapsed);
+    }
   }
-}
-if (sidebarToggleBtn) {
-  sidebarToggleBtn.addEventListener("click", toggleSidebar);
-}
-
+  if (sidebarToggleBtn) {
+    sidebarToggleBtn.addEventListener("click", toggleSidebar);
+  }
+});
 // Dropdowns
 document
   .querySelectorAll(".sidebar-menu-item[data-dropdown]")
