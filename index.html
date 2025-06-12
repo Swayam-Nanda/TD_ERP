@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ERP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- Sidebar -->
+      <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <a href="#" class="sidebar-logo">
+            <span class="sidebar-logo-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="14" width="3" height="6" rx="1" fill="#3b82f6" />
+                <rect
+                  x="10.5"
+                  y="10"
+                  width="3"
+                  height="10"
+                  rx="1"
+                  fill="#3b82f6"
+                />
+                <rect
+                  x="17"
+                  y="6"
+                  width="3"
+                  height="14"
+                  rx="1"
+                  fill="#3b82f6"
+                />
+              </svg>
+            </span>
+            <span class="sidebar-logo-text">ERP</span>
+          </a>
+        </div>
+        <!-- ...Sidebar menu sections here (see next reply for full menu and main content)... -->
+        <!-- Sidebar menu sections -->
+        <div class="sidebar-menu-section">
+          <div class="sidebar-menu-title">Menu</div>
+          <ul class="sidebar-menu-list">
+            <li>
+              <a class="sidebar-menu-item active" href="#">
+                <span class="sidebar-menu-icon">
+                  <!-- Dashboard SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <rect
+                      x="3"
+                      y="3"
+                      width="8"
+                      height="8"
+                      rx="2"
+                      fill="currentColor"
+                    />
+                    <rect
+                      x="13"
+                      y="3"
+                      width="8"
+                      height="8"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.4"
+                    />
+                    <rect
+                      x="3"
+                      y="13"
+                      width="8"
+                      height="8"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.4"
+                    />
+                    <rect
+                      x="13"
+                      y="13"
+                      width="8"
+                      height="8"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.4"
+                    />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a class="sidebar-menu-item" href="#">
+                <span class="sidebar-menu-icon">
+                  <!-- Calendar SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <rect
+                      x="4"
+                      y="5"
+                      width="16"
+                      height="15"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.2"
+                    />
+                    <rect
+                      x="4"
+                      y="9"
+                      width="16"
+                      height="11"
+                      rx="2"
+                      fill="currentColor"
+                    />
+                    <rect
+                      x="8"
+                      y="2"
+                      width="2"
+                      height="5"
+                      rx="1"
+                      fill="currentColor"
+                    />
+                    <rect
+                      x="14"
+                      y="2"
+                      width="2"
+                      height="5"
+                      rx="1"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">Calendar</span>
+              </a>
+            </li>
+            <li>
+              <a class="sidebar-menu-item" href="#">
+                <span class="sidebar-menu-icon">
+                  <!-- User SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="4" fill="currentColor" />
+                    <rect
+                      x="4"
+                      y="16"
+                      width="16"
+                      height="5"
+                      rx="2.5"
+                      fill="currentColor"
+                      fill-opacity="0.2"
+                    />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">User Profile</span>
+              </a>
+            </li>
+            <li>
+              <div class="sidebar-menu-item" data-dropdown="task">
+                <span class="sidebar-menu-icon">
+                  <!-- Task SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <rect
+                      x="4"
+                      y="4"
+                      width="16"
+                      height="16"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.2"
+                    />
+                    <path
+                      d="M8 12l2 2 4-4"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">Task</span>
+                <span class="sidebar-menu-arrow">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 20 20">
+                    <path
+                      d="M6 8l4 4 4-4"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div class="sidebar-dropdown" data-dropdown-list="task">
+                <a href="#" class="sidebar-dropdown-link">List</a>
+                <a href="#" class="sidebar-dropdown-link">Kanban</a>
+              </div>
+            </li>
+            <li>
+              <div class="sidebar-menu-item" data-dropdown="forms">
+                <span class="sidebar-menu-icon">
+                  <!-- Forms SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <rect
+                      x="4"
+                      y="4"
+                      width="16"
+                      height="16"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.2"
+                    />
+                    <rect
+                      x="7"
+                      y="7"
+                      width="10"
+                      height="2"
+                      rx="1"
+                      fill="currentColor"
+                    />
+                    <rect
+                      x="7"
+                      y="11"
+                      width="10"
+                      height="2"
+                      rx="1"
+                      fill="currentColor"
+                    />
+                    <rect
+                      x="7"
+                      y="15"
+                      width="10"
+                      height="2"
+                      rx="1"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">Forms</span>
+                <span class="sidebar-menu-arrow">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 20 20">
+                    <path
+                      d="M6 8l4 4 4-4"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div class="sidebar-dropdown" data-dropdown-list="forms">
+                <a href="#" class="sidebar-dropdown-link">Form Elements</a>
+                <a href="#" class="sidebar-dropdown-link">Form Layout</a>
+              </div>
+            </li>
+            <li>
+              <div class="sidebar-menu-item" data-dropdown="tables">
+                <span class="sidebar-menu-icon">
+                  <!-- Tables SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <rect
+                      x="4"
+                      y="4"
+                      width="16"
+                      height="16"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.2"
+                    />
+                    <rect
+                      x="4"
+                      y="10"
+                      width="16"
+                      height="2"
+                      rx="1"
+                      fill="currentColor"
+                    />
+                    <rect
+                      x="10"
+                      y="4"
+                      width="2"
+                      height="16"
+                      rx="1"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">Tables</span>
+                <span class="sidebar-menu-arrow">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 20 20">
+                    <path
+                      d="M6 8l4 4 4-4"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div class="sidebar-dropdown" data-dropdown-list="tables">
+                <a href="#" class="sidebar-dropdown-link">Basic Tables</a>
+                <a href="#" class="sidebar-dropdown-link">Data Tables</a>
+              </div>
+            </li>
+            <li>
+              <div class="sidebar-menu-item" data-dropdown="pages">
+                <span class="sidebar-menu-icon">
+                  <!-- Pages SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <rect
+                      x="4"
+                      y="4"
+                      width="16"
+                      height="16"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.2"
+                    />
+                    <rect
+                      x="8"
+                      y="8"
+                      width="8"
+                      height="8"
+                      rx="2"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">Pages</span>
+                <span class="sidebar-menu-arrow">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 20 20">
+                    <path
+                      d="M6 8l4 4 4-4"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div class="sidebar-dropdown" data-dropdown-list="pages">
+                <a href="#" class="sidebar-dropdown-link">File Manager</a>
+                <a href="#" class="sidebar-dropdown-link">Pricing Tables</a>
+                <a href="#" class="sidebar-dropdown-link">FAQ's</a>
+                <a href="#" class="sidebar-dropdown-link">Blank Page</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="sidebar-menu-section">
+          <div class="sidebar-menu-title">Support</div>
+          <ul class="sidebar-menu-list">
+            <li>
+              <a class="sidebar-menu-item" href="#">
+                <span class="sidebar-menu-icon">
+                  <!-- Chat SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <ellipse
+                      cx="12"
+                      cy="12"
+                      rx="10"
+                      ry="10"
+                      fill="currentColor"
+                      fill-opacity="0.2"
+                    />
+                    <circle cx="8" cy="12" r="1.5" fill="currentColor" />
+                    <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+                    <circle cx="16" cy="12" r="1.5" fill="currentColor" />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">Chat</span>
+              </a>
+            </li>
+            <li>
+              <div class="sidebar-menu-item" data-dropdown="email">
+                <span class="sidebar-menu-icon">
+                  <!-- Email SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <rect
+                      x="3"
+                      y="5"
+                      width="18"
+                      height="14"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.2"
+                    />
+                    <path
+                      d="M3 7l9 6 9-6"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">Email</span>
+                <span class="sidebar-menu-arrow">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 20 20">
+                    <path
+                      d="M6 8l4 4 4-4"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div class="sidebar-dropdown" data-dropdown-list="email">
+                <a href="#" class="sidebar-dropdown-link">Inbox</a>
+                <a href="#" class="sidebar-dropdown-link">Details</a>
+              </div>
+            </li>
+            <li>
+              <a class="sidebar-menu-item" href="#">
+                <span class="sidebar-menu-icon">
+                  <!-- Invoice SVG -->
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <rect
+                      x="4"
+                      y="4"
+                      width="16"
+                      height="16"
+                      rx="2"
+                      fill="currentColor"
+                      fill-opacity="0.2"
+                    />
+                    <rect
+                      x="7"
+                      y="7"
+                      width="10"
+                      height="2"
+                      rx="1"
+                      fill="currentColor"
+                    />
+                    <rect
+                      x="7"
+                      y="11"
+                      width="6"
+                      height="2"
+                      rx="1"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+                <span class="sidebar-menu-text">Invoice</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- Main -->
+      <div class="main">
+        <!-- Topbar -->
+        <div class="topbar">
+          <button
+            class="sidebar-toggle-btn"
+            id="sidebarToggleBtn"
+            aria-label="Open sidebar"
+          >
+            <!-- Hamburger SVG -->
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+              <rect x="4" y="6" width="16" height="2" rx="1" fill="#3b82f6" />
+              <rect x="4" y="11" width="8" height="2" rx="1" fill="#3b82f6" />
+              <rect x="4" y="16" width="16" height="2" rx="1" fill="#3b82f6" />
+            </svg>
+          </button>
+          <div class="topbar-search">
+            <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+              <circle cx="9" cy="9" r="7" stroke="#9ca3af" stroke-width="2" />
+              <path
+                d="M15 15l4 4"
+                stroke="#9ca3af"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <input type="text" placeholder="Search or type command..." />
+            <span class="topbar-shortcut">⌘K</span>
+          </div>
+          <div class="topbar-actions">
+            <!-- Light mode SVG -->
+            <button class="topbar-action-btn" aria-label="Light mode">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="5"
+                  stroke="#9ca3af"
+                  stroke-width="2"
+                />
+                <g stroke="#9ca3af" stroke-width="2">
+                  <line x1="12" y1="1" x2="12" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="23" />
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                  <line x1="1" y1="12" x2="3" y2="12" />
+                  <line x1="21" y1="12" x2="23" y2="12" />
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </g>
+              </svg>
+            </button>
+            <!-- Dark mode SVG -->
+            <button class="topbar-action-btn" aria-label="Dark mode">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                  stroke="#9ca3af"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+            </button>
+            <!-- Notification SVG -->
+            <button class="topbar-action-btn" aria-label="Notifications">
+              <svg width="22" height="22" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"
+                  stroke="#9ca3af"
+                  stroke-width="1.5"
+                  fill="none"
+                />
+              </svg>
+            </button>
+            <div class="profile-dropdown-container">
+              <button
+                class="profile-dropdown-btn"
+                id="profileDropdownBtn"
+                aria-label="Profile"
+              >
+                <img
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  class="topbar-avatar"
+                  alt="User"
+                />
+                <span class="topbar-user">Musharof</span>
+                <span class="profile-dropdown-arrow">
+                  <svg
+                    width="18"
+                    height="18"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                    style="margin-left: 4px; vertical-align: middle"
+                  >
+                    <path
+                      d="M7 7l3 3 3-3"
+                      stroke="var(--muted-color)"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <div class="profile-dropdown" id="profileDropdown">
+                <a href="#" class="profile-dropdown-link">Edit Profile</a>
+                <a href="#" class="profile-dropdown-link">Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content" id="employee" style="display: block">
+          <h2 style="margin-bottom: 2rem">
+            🧑‍💻 Welcome to the Employee Dashboard
+          </h2>
+          <div class="dashboard-employee">
+            <!-- Top Row: 3 Cards + Attendance Pie Chart -->
+            <div class="dashboard-row dashboard-row-top">
+              <div class="card kpi-card">
+                <div class="kpi-icon kpi-icon-bg">
+                  <!-- Users SVG -->
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"
+                      stroke="var(--text-primary)"
+                      stroke-width="2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <circle
+                      cx="9"
+                      cy="7"
+                      r="4"
+                      fill="none"
+                      stroke="var(--text-primary)"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M23 21v-2a4 4 0 0 0-3-3.87"
+                      stroke="var(--text-primary)"
+                      stroke-width="2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M16 3.13a4 4 0 0 1 0 7.75"
+                      stroke="var(--text-primary)"
+                      stroke-width="2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <div class="kpi-label">Customers</div>
+                <div class="kpi-value">3,782</div>
+                <div class="kpi-badge kpi-badge-up">
+                  <svg width="16" height="16" fill="none">
+                    <path
+                      d="M8 12V4M8 4l-4 4M8 4l4 4"
+                      stroke="var(--success-color)"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  11.01%
+                </div>
+              </div>
+              <div class="card kpi-card">
+                <div class="kpi-icon kpi-icon-bg">
+                  <!-- Box SVG -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--text-color)"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M12 1.25C11.3953 1.25 10.8384 1.40029 10.2288 1.65242C9.64008 1.89588 8.95633 2.25471 8.1049 2.70153L6.03739 3.78651C4.99242 4.33487 4.15616 4.77371 3.51047 5.20491C2.84154 5.65164 2.32632 6.12201 1.95112 6.75918C1.57718 7.39421 1.40896 8.08184 1.32829 8.90072C1.24999 9.69558 1.24999 10.6731 1.25 11.9026V12.0974C1.24999 13.3268 1.24999 14.3044 1.32829 15.0993C1.40896 15.9182 1.57718 16.6058 1.95112 17.2408C2.32632 17.878 2.84154 18.3484 3.51047 18.7951C4.15613 19.2263 4.99233 19.6651 6.03723 20.2134L8.10486 21.2985C8.95628 21.7453 9.64008 22.1041 10.2288 22.3476C10.8384 22.5997 11.3953 22.75 12 22.75C12.6047 22.75 13.1616 22.5997 13.7712 22.3476C14.3599 22.1041 15.0437 21.7453 15.8951 21.2985L17.9626 20.2135C19.0076 19.6651 19.8438 19.2263 20.4895 18.7951C21.1585 18.3484 21.6737 17.878 22.0489 17.2408C22.4228 16.6058 22.591 15.9182 22.6717 15.0993C22.75 14.3044 22.75 13.3269 22.75 12.0975V11.9025C22.75 10.6731 22.75 9.69557 22.6717 8.90072C22.591 8.08184 22.4228 7.39421 22.0489 6.75918C21.6737 6.12201 21.1585 5.65164 20.4895 5.20491C19.8438 4.77371 19.0076 4.33487 17.9626 3.7865L15.8951 2.70154C15.0437 2.25472 14.3599 1.89589 13.7712 1.65242C13.1616 1.40029 12.6047 1.25 12 1.25ZM8.7708 4.04608C9.66052 3.57917 10.284 3.2528 10.802 3.03856C11.3062 2.83004 11.6605 2.75 12 2.75C12.3395 2.75 12.6938 2.83004 13.198 3.03856C13.716 3.2528 14.3395 3.57917 15.2292 4.04608L17.2292 5.09563C18.3189 5.66748 19.0845 6.07032 19.6565 6.45232C19.9387 6.64078 20.1604 6.81578 20.3395 6.99174L12 11.1615L3.66054 6.99174C3.83956 6.81578 4.06132 6.64078 4.34352 6.45232C4.91553 6.07032 5.68111 5.66747 6.7708 5.09563L8.7708 4.04608ZM2.93768 8.30736C2.88718 8.52125 2.84901 8.76412 2.82106 9.04778C2.75084 9.7606 2.75 10.6644 2.75 11.9415V12.0585C2.75 13.3356 2.75084 14.2394 2.82106 14.9522C2.88974 15.6494 3.02022 16.1002 3.24367 16.4797C3.46587 16.857 3.78727 17.1762 4.34352 17.5477C4.91553 17.9297 5.68111 18.3325 6.7708 18.9044L8.7708 19.9539C9.66052 20.4208 10.284 20.7472 10.802 20.9614C10.9656 21.0291 11.1134 21.0832 11.25 21.1255V12.4635L2.93768 8.30736ZM12.75 21.1255C12.8866 21.0832 13.0344 21.0291 13.198 20.9614C13.716 20.7472 14.3395 20.4208 15.2292 19.9539L17.2292 18.9044C18.3189 18.3325 19.0845 17.9297 19.6565 17.5477C20.2127 17.1762 20.5341 16.857 20.7563 16.4797C20.9798 16.1002 21.1103 15.6494 21.1789 14.9522C21.2492 14.2394 21.25 13.3356 21.25 12.0585V11.9415C21.25 10.6644 21.2492 9.7606 21.1789 9.04778C21.151 8.76412 21.1128 8.52125 21.0623 8.30736L12.75 12.4635V21.1255Z"
+                      fill="var(--text-primary)"
+                    />
+                  </svg>
+                </div>
+                <div class="kpi-label">Orders</div>
+                <div class="kpi-value">5,359</div>
+                <div class="kpi-badge kpi-badge-down">
+                  <svg width="16" height="16" fill="none">
+                    <path
+                      d="M8 4v8M8 12l-4-4M8 12l4-4"
+                      stroke="var(--danger-color)"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  9.05%
+                </div>
+              </div>
+              <div class="card kpi-card">
+                <div class="kpi-icon kpi-icon-bg">
+                  <!-- Cart SVG -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="800px"
+                    height="800px"
+                    viewBox="0 0 1024 1024"
+                    class="icon"
+                  >
+                    <path
+                      fill="var(--text-primary)"
+                      d="M704 288h131.072a32 32 0 0131.808 28.8L886.4 512h-64.384l-16-160H704v96a32 32 0 11-64 0v-96H384v96a32 32 0 01-64 0v-96H217.92l-51.2 512H512v64H131.328a32 32 0 01-31.808-35.2l57.6-576a32 32 0 0131.808-28.8H320v-22.336C320 154.688 405.504 64 512 64s192 90.688 192 201.664v22.4zm-64 0v-22.336C640 189.248 582.272 128 512 128c-70.272 0-128 61.248-128 137.664v22.4h256zm201.408 483.84L768 698.496V928a32 32 0 11-64 0V698.496l-73.344 73.344a32 32 0 11-45.248-45.248l128-128a32 32 0 0145.248 0l128 128a32 32 0 11-45.248 45.248z"
+                    />
+                  </svg>
+                </div>
+                <div class="kpi-label">Sellings</div>
+                <div class="kpi-value">₹22,340</div>
+                <div class="kpi-badge kpi-badge-up">
+                  <svg width="16" height="16" fill="none">
+                    <path
+                      d="M8 12V4M8 4l-4 4M8 4l4 4"
+                      stroke="var(--success-color)"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  5.12%
+                </div>
+              </div>
+              <div class="card kpi-card notify">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing</p>
+              </div>
+            </div>
+
+            <!-- Bottom Row: Monthly Sales with Toggle -->
+            <div class="dashboard-row bottom-row">
+              <div class="attendance-card card">
+                <canvas class="attendance-card" id="attendanceGauge"></canvas>
+              </div>
+              <div class="card sales-card">
+                <div class="sales-header">
+                  <h2>Monthly Sales</h2>
+                  <div class="sales-toggle">
+                    <button
+                      id="salesToggleYear"
+                      class="sales-toggle-btn active"
+                    >
+                      Yearly
+                    </button>
+                    <button id="salesToggleWeek" class="sales-toggle-btn">
+                      Weekly
+                    </button>
+                  </div>
+                </div>
+                <canvas id="monthlySalesChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-content" id="hr" style="display: none">
+          <h2 style="margin-bottom: 2rem">🧑‍💼 HR Dashboard</h2>
+          <div class="dashboard-row">
+            <div class="card kpi-card">
+              <div class="kpi-label">Customers Today</div>
+              <div class="kpi-value">1,245</div>
+            </div>
+            <div class="card kpi-card">
+              <div class="kpi-label">Orders Today</div>
+              <div class="kpi-value">312</div>
+            </div>
+            <div class="card kpi-card">
+              <div class="kpi-label">Sellings Today</div>
+              <div class="kpi-value">₹ 22,340</div>
+            </div>
+          </div>
+          <div class="dashboard-row">
+            <div class="card" style="flex: 2">
+              <div class="kpi-label">📊 Monthly Sales</div>
+              <canvas id="monthlySalesBarHR"></canvas>
+            </div>
+          </div>
+          <div class="dashboard-row">
+            <div class="card" style="flex: 1">
+              <div class="kpi-label">📈 Attendance This Month</div>
+              <canvas id="attendanceLine"></canvas>
+            </div>
+            <div class="card" style="flex: 1">
+              <div class="kpi-label">🧍‍♂️ Employee Joining Trend</div>
+              <canvas id="joiningBar"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Set dashboardType to "E" (Employee) or "HR" (HR) as needed
+      let dashboardType = "HR"; // or "HR"
+
+      function renderDashboard() {
+        if (dashboardType === "E") {
+          document.getElementById("employee").style.display = "block";
+          document.getElementById("hr").style.display = "none";
+          renderEmployeeCharts();
+        } else if (dashboardType === "HR") {
+          document.getElementById("hr").style.display = "block";
+          document.getElementById("employee").style.display = "none";
+          renderHRCharts();
+        }
+      }
+      function getCssVar(name) {
+        return getComputedStyle(document.documentElement)
+          .getPropertyValue(name)
+          .trim();
+      }
+
+      const primaryColor = getCssVar("--primary-color");
+      const textPrimaryColor = getCssVar("--text-primary");
+      const graphColor = getCssVar("--graph-color");
+      // Employee Dashboard Charts
+      function renderEmployeeCharts() {
+        // Attendance Gauge
+        const attendanceValue = 75.55; // for example
+        const data = {
+          datasets: [
+            {
+              data: [attendanceValue, 100 - attendanceValue],
+              backgroundColor: ["#5B7CFA", "#E0E4F7"],
+              borderWidth: 0,
+            },
+          ],
+        };
+
+        const options = {
+          rotation: -90, // start angle in degrees
+          circumference: 180, // half doughnut
+          cutout: "80%", // thickness of the arc
+          plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false },
+          },
+        };
+
+        new Chart(document.getElementById("attendanceGauge"), {
+          type: "doughnut",
+          data: data,
+          options: options,
+        });
+
+        // Sales Data
+        const salesYearData = {
+          labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+          datasets: [
+            {
+              label: "Sales",
+              data: [
+                5400, 7200, 6900, 8300, 9100, 7800, 8600, 9000, 9500, 9800,
+                10200, 11000,
+              ],
+              backgroundColor: graphColor,
+              borderRadius: 8,
+              barThickness: 24,
+            },
+          ],
+        };
+        const salesWeekData = {
+          labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+          datasets: [
+            {
+              label: "Sales",
+              data: [2400, 3200, 3100, 4000],
+              backgroundColor: graphColor,
+              borderRadius: 8,
+              barThickness: 48,
+            },
+          ],
+        };
+
+        let salesChart;
+        function renderSalesChart(type = "year") {
+          const ctx = document
+            .getElementById("monthlySalesChart")
+            .getContext("2d");
+          if (salesChart) salesChart.destroy();
+          salesChart = new Chart(ctx, {
+            type: "bar",
+            data: type === "year" ? salesYearData : salesWeekData,
+            options: {
+              plugins: {
+                legend: {
+                  labels: {
+                    color: textPrimaryColor,
+                  },
+                  display: false,
+                },
+              },
+              scales: {
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                  ticks: {
+                    color: textPrimaryColor,
+                  },
+                },
+                y: {
+                  beginAtZero: true,
+                  ticks: { color: "var(--text-secondary)" },
+                },
+              },
+            },
+          });
+        }
+
+        // Toggle logic
+        renderSalesChart("year");
+        document
+          .getElementById("salesToggleYear")
+          .addEventListener("click", function () {
+            renderSalesChart("year");
+            this.classList.add("active");
+            document
+              .getElementById("salesToggleWeek")
+              .classList.remove("active");
+          });
+        document
+          .getElementById("salesToggleWeek")
+          .addEventListener("click", function () {
+            renderSalesChart("week");
+            this.classList.add("active");
+            document
+              .getElementById("salesToggleYear")
+              .classList.remove("active");
+          });
+      }
+
+      // HR Dashboard Charts
+      function renderHRCharts() {
+        // Monthly Sales Bar
+        new Chart(document.getElementById("monthlySalesBarHR"), {
+          type: "bar",
+          data: {
+            labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+            datasets: [
+              {
+                label: "Sales",
+                data: [4500, 5700, 4800, 6200],
+                backgroundColor: "var(--primary-color)",
+                borderRadius: 6,
+              },
+            ],
+          },
+          options: {
+            plugins: { legend: { display: false } },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: "var(--text-secondary)" },
+              },
+              y: {
+                beginAtZero: true,
+                ticks: { color: "var(--text-secondary)" },
+              },
+            },
+          },
+        });
+        // Attendance Line
+        new Chart(document.getElementById("attendanceLine"), {
+          type: "line",
+          data: {
+            labels: Array.from({ length: 30 }, (_, i) => `${i + 1}`),
+            datasets: [
+              {
+                label: "% Present",
+                data: [
+                  98, 97, 99, 97, 95, 90, 93, 95, 98, 99, 98, 95, 97, 96, 99,
+                  98, 95, 96, 97, 99, 98, 99, 97, 98, 99, 98, 97, 98, 99, 98,
+                ],
+                borderColor: "var(--success-color)",
+                backgroundColor: "rgba(40, 167, 69, 0.1)",
+                fill: true,
+                tension: 0.4,
+              },
+            ],
+          },
+          options: {
+            plugins: { legend: { display: false } },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: "var(--text-secondary)" },
+              },
+              y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: { color: "var(--text-secondary)" },
+              },
+            },
+          },
+        });
+        // Employee Joining Trend Bar
+        new Chart(document.getElementById("joiningBar"), {
+          type: "bar",
+          data: {
+            labels: [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
+            datasets: [
+              {
+                label: "Joinings",
+                data: [3, 5, 2, 4, 6, 8, 7, 9, 6, 5, 4, 7],
+                backgroundColor: "var(--accent-color)",
+                borderRadius: 6,
+              },
+            ],
+          },
+          options: {
+            plugins: { legend: { display: false } },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: "var(--text-secondary)" },
+              },
+              y: {
+                beginAtZero: true,
+                ticks: { color: "var(--text-secondary)" },
+              },
+            },
+          },
+        });
+      }
+
+      // Render on load
+      renderDashboard();
+
+      // Example: To switch dashboard, set dashboardType and call renderDashboard()
+      // dashboardType = "HR"; renderDashboard();
+    </script>
+  </body>
+</html>

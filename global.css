@@ -1,0 +1,56 @@
+/* global.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto+Slab:wght@400;500&display=swap");
+
+/* ====== Root variables for Light mode ====== */
+:root {
+  /* Main colors */
+  --primary-color: #3b4cca; /* Deep Indigo Blue */
+  --secondary-color: #ff6f3c; /* Vibrant Orange */
+  --accent-color: #f4c35e; /* Warm Yellow */
+  --bg-color: #fafafa; /* Soft Off-White */
+  --card-bg: #ffffff; /* White for cards */
+  --text-primary: #2e2e2e; /* Charcoal Black */
+  --text-secondary: #6e6e6e; /* Cool Gray */
+  --border-color: #d1d5db; /* Light Gray border */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --graph-color: rgb(70, 95, 255);
+  /* Additional colors */
+  --success-color: #28a745; /* Green */
+  --danger-color: #dc3545; /* Red */
+  --warning-color: #ffc107; /* Amber */
+  --info-color: #17a2b8; /* Teal */
+  --muted-color: #6c757d; /* Gray */
+  --light-gray: #f8f9fa; /* Very light gray */
+  --dark-gray: #343a40; /* Dark gray */
+
+  /* Fonts */
+  --font-primary: "Poppins", sans-serif;
+  --font-secondary: "Roboto Slab", serif;
+
+  /* Transitions */
+  --transition-speed: 0.3s;
+}
+
+/* ====== Root variables for Dark mode ====== */
+body.dark-mode {
+  --primary-color: #3b4cca;
+  --secondary-color: #ff6f3c;
+  --accent-color: #f4c35e;
+  --bg-color: #101828;
+  --card-bg: color-mix(in oklab, #ffffff 3%, transparent);
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --border-color: #333333;
+  --shadow-color: rgba(0, 0, 0, 0.6);
+  --buttonactive-color: #7592ff;
+  --graph-color: rgb(70, 95, 255);
+
+  /* Additional colors for dark mode */
+  --success-color: #34c759; /* Brighter green */
+  --danger-color: #ff3b30; /* Brighter red */
+  --warning-color: #ffd60a; /* Brighter amber */
+  --info-color: #5ac8fa; /* Brighter teal */
+  --muted-color: #8e8e93; /* Lighter gray */
+  --light-gray: #2c2c2e; /* Darker gray */
+  --dark-gray: #1c1c1e; /* Even darker gray */
+}

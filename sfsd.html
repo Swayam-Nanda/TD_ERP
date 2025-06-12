@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TailAdmin Dashboard Clone</title>
+    <style>
+      :root {
+        --sidebar-width: 250px;
+        --sidebar-collapsed-width: 60px;
+        --brand-blue: #3b82f6;
+        --gray-bg: #f9fafb;
+        --gray-border: #e5e7eb;
+        --gray-txt: #6b7280;
+        --gray-light: #f3f4f6;
+        --sidebar-z: 1000;
+        --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "Arial", sans-serif;
+        background: var(--gray-bg);
+        color: #222;
+        min-height: 100vh;
+      }
+      body.dark-mode {
+        --gray-bg: #1a1a1a;
+        --gray-border: #2d2d2d;
+        --gray-txt: #aaaaaa;
+        --gray-light: #2d2d2d;
+        background: var(--gray-bg);
+        color: #f0f0f0;
+      }
+      body.dark-mode .sidebar,
+      body.dark-mode .topbar {
+        background: #222;
+        border-color: #333;
+      }
+      body.dark-mode .sidebar-menu-item,
+      body.dark-mode .sidebar-menu-icon,
+      body.dakr-mode .topbar-user {
+        color: #f0f0f0;
+      }
+      body.dark-mode .topbar-search,
+      body.dark-mode .topbar-shortcut {
+        background: #333;
+        border-color: #444;
+        color: #f0f0f0;
+      }
+      body.dark-mode .topbar-search input {
+        color: #f0f0f0;
+      }
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+      /* SIDEBAR */
+      .sidebar {
+        padding: 0 20px 0 20px;
+        width: var(--sidebar-width);
+        background: #fff;
+        border-right: 1px solid var(--gray-border);
+        display: flex;
+        flex-direction: column;
+        transition: width var(--transition), transform var(--transition);
+        z-index: var(--sidebar-z);
+        position: relative;
+        flex-shrink: 0;
+      }
+      .sidebar.collapsed {
+        width: var(--sidebar-collapsed-width);
+      }
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 32px 0 24px 0;
+        justify-content: flex-start;
+      }
+      .sidebar-logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #222;
+        text-decoration: no;
+        transition: opacity var(--transition);
+      }
+      .sidebar.collapsed .sidebar-logo-text {
+        display: none;
+      }
+      .sidebar-logo-icon {
+        width: 36px;
+        height: 36px;
+        margin-right: 10px;
+        margin-left: 10px;
+        display: inline-block;
+      }
+      /* Sidebar Menu */
+      .sidebar-menu-section {
+        margin-bottom: 2rem;
+      }
+      .sidebar-menu-title {
+        color: #9ca3af;
+        font-size: 0.78rem;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin-bottom: 1.2rem;
+        margin-left: 8px;
+        text-transform: uppercase;
+        transition: opacity var(--transition);
+      }
+      .sidebar.collapsed .sidebar-menu-title {
+        opacity: 0;
+        height: 0;
+        margin: 0;
+        overflow: hidden;
+      }
+      .sidebar-menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .sidebar-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        color: #374151;
+        font-weight: 500;
+        font-size: 1rem;
+        border-radius: 8px;
+        margin-bottom: 4px;
+        cursor: pointer;
+        transition: background var(--transition), color var(--transition);
+        position: relative;
+        text-decoration: none;
+        user-select: none;
+      }
+      .sidebar-menu-item.active,
+      .sidebar-menu-item:hover {
+        background: #e0e7ff;
+        color: #4338ca;
+      }
+      .sidebar-menu-icon {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        display: inline-block;
+        color: #9ca3af;
+        transition: color var(--transition);
+      }
+      .sidebar-menu-item.active .sidebar-menu-icon,
+      .sidebar-menu-item:hover .sidebar-menu-icon {
+        color: #4338ca;
+      }
+      .sidebar.collapsed .sidebar-menu-text {
+        display: none;
+      }
+      .sidebar-menu-arrow {
+        margin-left: auto;
+        transition: transform var(--transition);
+        width: 18px;
+        height: 18px;
+        color: #9ca3af;
+      }
+      .sidebar-menu-item.open .sidebar-menu-arrow {
+        transform: rotate(90deg);
+        color: #4338ca;
+      }
+      .sidebar.collapsed .sidebar-menu-arrow {
+        display: none;
+      }
+      /* Dropdown */
+      .sidebar-dropdown {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--transition);
+        margin-left: 38px;
+        background: none;
+        padding-left: 0;
+      }
+      .sidebar-menu-item.open + .sidebar-dropdown {
+        max-height: 400px;
+        margin-bottom: 6px;
+      }
+      .sidebar-dropdown-link {
+        display: block;
+        padding: 7px 0 7px 14px;
+        color: #6b7280;
+        font-size: 0.97rem;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: color var(--transition), background var(--transition);
+        position: relative;
+      }
+      .sidebar-dropdown-link:hover,
+      .sidebar-dropdown-link.active {
+        color: #4338ca;
+        background: #e0e7ff;
+      }
+      .sidebar.collapsed .sidebar-dropdown {
+        display: none;
+      }
+      /* MAIN & TOPBAR */
+      .main {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border-bottom: 1px solid var(--gray-border);
+        padding: 0 32px;
+        height: 70px;
+        gap: 18px;
+        box-sizing: border-box;
+        z-index: 10;
+      }
+      .sidebar-toggle-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 6px;
+        transition: background 0.2s;
+      }
+      .sidebar-toggle-btn:hover {
+        background: var(--gray-light);
+      }
+      .topbar-search {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background: #f3f4f6;
+        border-radius: 8px;
+        padding: 8px 14px;
+        color: #6b7280;
+        font-size: 1rem;
+        border: 1px solid #e5e7eb;
+        min-width: 180px;
+        max-width: 450px;
+      }
+      .topbar-search input {
+        border: none;
+        background: none;
+        outline: none;
+        font-size: 1rem;
+        flex: 1;
+        margin-left: 8px;
+        color: #222;
+      }
+      .topbar-shortcut {
+        background: #f3f4f6;
+        border-radius: 6px;
+        padding: 2px 8px;
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin-left: 10px;
+      }
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .topbar-action-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 6px;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+      }
+      .topbar-action-btn:hover {
+        background: var(--gray-light);
+      }
+      .topbar-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #e5e7eb;
+        margin-left: 8px;
+      }
+      .topbar-user {
+        font-weight: 500;
+        color: #374151;
+        margin-left: 8px;
+      }
+      .dashboard-content {
+        flex: 1;
+        background: var(--gray-bg);
+        padding: 32px;
+      }
+      @media (max-width: 600px) {
+        .topbar {
+          padding: 0 8px;
+        }
+        .topbar-search {
+          max-width: 200px;
+        }
+      }
+      @media (max-width: 800px) {
+        .layout {
+          flex-direction: column;
+        }
+        .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          height: 100vh;
+          transform: translateX(-100%);
+          transition: transform var(--transition);
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .main {
+          margin-left: 0;
+        }
+        .dashboard-content {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+</html>

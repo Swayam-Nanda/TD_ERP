@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ERP System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Sidebar Styles for icons-only with label on hover */
+    #sidebar-wrapper {
+      position: fixed;
+      left: 0;
+      top: 56px; /* height of navbar */
+      height: calc(100vh - 56px);
+      width: 60px;
+      background: #fff;
+      border-right: 1px solid #eee;
+      transition: width 0.2s;
+      overflow-x: hidden;
+      z-index: 10;
+      padding-top: 10px;
+    }
+    #sidebar-wrapper .sidebar-heading,
+    #sidebar-wrapper .list-group-item {
+      display: none;
+    }
+    #sidebar-wrapper ul,
+    #sidebar-wrapper .list-group {
+      padding-left: 0;
+      margin: 0;
+      list-style: none;
+    }
+    #sidebar-wrapper li {
+      width: 100%;
+    }
+    #sidebar-wrapper a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      color: #444;
+      text-decoration: none;
+      position: relative;
+      transition: background 0.2s;
+      font-size: 1.5rem;
+    }
+    #sidebar-wrapper a:hover,
+    #sidebar-wrapper a.sidebar-active {
+      background: #f0f0f0;
+      color: #007bff;
+    }
+    #sidebar-wrapper i {
+      width: 32px;
+      text-align: center;
+      pointer-events: none;
+    }
+    /* Hide label by default */
+    #sidebar-wrapper .sidebar-label {
+      opacity: 0;
+      position: absolute;
+      left: 60px;
+      background: #222;
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 4px;
+      white-space: nowrap;
+      pointer-events: none;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+      z-index: 100;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    #sidebar-wrapper a:hover .sidebar-label {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* Expand sidebar on hover if you want full effect */
+    #sidebar-wrapper:hover {
+      width: 200px;
+    }
+    #sidebar-wrapper:hover a {
+      justify-content: flex-start;
+      padding-left: 20px;
+    }
+    #sidebar-wrapper:hover .sidebar-label {
+      opacity: 1;
+      left: 50px;
+      background: none;
+      color: #222;
+      position: static;
+      padding: 0;
+      margin-left: 18px;
+      font-weight: 500;
+      transform: none;
+    }
+    /* Main content adjustment */
+    #main-content {
+      margin-left: 60px;
+      transition: margin-left 0.2s;
+      width: calc(100vw - 60px);
+    }
+    #sidebar-wrapper:hover ~ #main-content {
+      margin-left: 200px;
+      width: calc(100vw - 200px);
+    }
+    /* Navbar fix */
+    .navbar {
+      z-index: 20;
+      position: sticky;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">ERP System</a>
+    <div class="ms-auto">
+      <button class="btn btn-outline-light" id="darkModeToggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <span id="darkModeIcon" class="bi bi-moon-fill"></span> Dark Mode
+      </button>
+    </div>
+  </nav>
+  <div class="d-flex">
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <ul>
+        <li>
+          <a href="#" onclick="showPage('dashboard')">
+            <i class="fa-solid fa-house"></i>
+            <span class="sidebar-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('hr')">
+            <i class="fa-solid fa-user-tie"></i>
+            <span class="sidebar-label">HR</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('finance')">
+            <i class="fa-solid fa-coins"></i>
+            <span class="sidebar-label">Finance</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('sales')">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span class="sidebar-label">Sales & Marketing</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('financial-overview')">
+            <i class="fa-solid fa-truck"></i>
+            <span class="sidebar-label">Financial Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('inventory')">
+            <i class="fa-solid fa-warehouse"></i>
+            <span class="sidebar-label">Inventory</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('production')">
+            <i class="fa-solid fa-industry"></i>
+            <span class="sidebar-label">Production</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('projects')">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span class="sidebar-label">Projects</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('customer')">
+            <i class="fa-solid fa-headset"></i>
+            <span class="sidebar-label">Customer Service</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('reporting')">
+            <i class="fa-solid fa-chart-bar"></i>
+            <span class="sidebar-label">Reporting</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('communication')">
+            <i class="fa-solid fa-comments"></i>
+            <span class="sidebar-label">Communication</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('login')">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span class="sidebar-label">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="container mt-4" id="main-content" style="flex:1;"></div>
+  </div>
+  <div id="templates" style="display:none;">
+    
+    <!-- Login -->
+    <div id="login">
+      <div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+        <div class="card p-4 shadow" style="width: 350px;">
+          <h3 class="mb-3 text-center">Login</h3>
+          <form onsubmit="return handleLogin(event)">
+            <div class="mb-3">
+              <label class="form-label">Email address</label>
+              <input type="email" class="form-control" id="login-email" placeholder="Enter email" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" id="login-password" placeholder="Password" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign In</button>
+            <p class="mt-3 text-center">
+              Don't have an account? <a href="#" onclick="showPage('signup')">Sign Up</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Signup -->
+    <div id="signup">
+      <div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+        <div class="card p-4 shadow" style="width: 350px;">
+          <h3 class="mb-3 text-center">Sign Up</h3>
+          <form onsubmit="return handleSignup(event)">
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="signup-name" placeholder="Enter name" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email address</label>
+              <input type="email" class="form-control" id="signup-email" placeholder="Enter email" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" id="signup-password" placeholder="Password" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            <p class="mt-3 text-center">
+              Already have an account? <a href="#" onclick="showPage('login')">Login</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Dashboard -->
+    <div id="dashboard">
+      <h2>Dashboard</h2>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Employees</h5>
+              <p class="card-text">120</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Total Revenue</h5>
+              <p class="card-text">₹50,00,000</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Inventory Items</h5>
+              <p class="card-text">350</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Projects</h5>
+              <p class="card-text">8</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- HR --><div id="hr">
+  <h2>Human Resources (HR)</h2>
+  <ul class="nav nav-tabs" id="hrTab" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#empinfo" type="button">Employee Info</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#recruit" type="button">Recruitment</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#attendance" type="button">Attendance</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#leave" type="button">Leave</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#payroll" type="button">Payroll</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#performance" type="button">Performance</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#training" type="button">Training</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#benefits" type="button">Benefits</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#analytics" type="button">Analytics</button></li>
+  </ul>
+  <div class="tab-content">
+    
+    <!-- Employee Info -->
+    <div class="tab-pane fade show active" id="empinfo">
+      <h5>Employee List</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>ID</th><th>Name</th><th>Role</th><th>Email</th><th>Status</th><th>DOJ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>EMP001</td><td>Rohit Sharma</td><td>Manager</td><td>rohit@company.com</td><td><span class="badge bg-success">Active</span></td><td>2022-01-10</td></tr>
+          <tr><td>EMP002</td><td>Priya Singh</td><td>HR</td><td>priya@company.com</td><td><span class="badge bg-success">Active</span></td><td>2023-03-15</td></tr>
+          <tr><td>EMP003</td><td>Amit Kumar</td><td>Developer</td><td>amit@company.com</td><td><span class="badge bg-warning">Probation</span></td><td>2024-01-05</td></tr>
+          <tr><td>EMP004</td><td>Simran Kaur</td><td>Designer</td><td>simran@company.com</td><td><span class="badge bg-success">Active</span></td><td>2021-11-22</td></tr>
+          <tr><td>EMP005</td><td>Vikas Yadav</td><td>Accountant</td><td>vikas@company.com</td><td><span class="badge bg-danger">Inactive</span></td><td>2020-07-18</td></tr>
+          <tr><td>EMP006</td><td>Neha Jain</td><td>Support</td><td>neha@company.com</td><td><span class="badge bg-success">Active</span></td><td>2022-12-01</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Recruitment -->
+    <div class="tab-pane fade" id="recruit">
+      <h5>Recruitment & Onboarding</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Position</th><th>Applicants</th><th>Hired</th><th>Status</th><th>Onboarding</th><th>HR</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Software Engineer</td><td>12</td><td>1</td><td>Open</td><td>Ongoing</td><td>Priya</td></tr>
+          <tr><td>Sales Manager</td><td>8</td><td>0</td><td>Open</td><td>Pending</td><td>Priya</td></tr>
+          <tr><td>UI Designer</td><td>6</td><td>1</td><td>Closed</td><td>Completed</td><td>Simran</td></tr>
+          <tr><td>Accountant</td><td>5</td><td>1</td><td>Closed</td><td>Completed</td><td>Vikas</td></tr>
+          <tr><td>Support Exec.</td><td>9</td><td>2</td><td>Open</td><td>Ongoing</td><td>Neha</td></tr>
+          <tr><td>Tester</td><td>7</td><td>0</td><td>Open</td><td>Pending</td><td>Priya</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Attendance -->
+    <div class="tab-pane fade" id="attendance">
+      <h5>Time & Attendance Tracking</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Employee</th><th>Date</th><th>Status</th><th>In</th><th>Out</th><th>Hours</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rohit Sharma</td><td>2025-06-09</td><td>Present</td><td>09:01</td><td>17:45</td><td>8.7</td></tr>
+          <tr><td>Priya Singh</td><td>2025-06-09</td><td>Present</td><td>09:15</td><td>18:00</td><td>8.5</td></tr>
+          <tr><td>Amit Kumar</td><td>2025-06-09</td><td>Present</td><td>09:30</td><td>17:00</td><td>7.5</td></tr>
+          <tr><td>Simran Kaur</td><td>2025-06-09</td><td>Absent</td><td>-</td><td>-</td><td>0</td></tr>
+          <tr><td>Vikas Yadav</td><td>2025-06-09</td><td>Present</td><td>10:00</td><td>17:30</td><td>7.5</td></tr>
+          <tr><td>Neha Jain</td><td>2025-06-09</td><td>Present</td><td>09:05</td><td>18:10</td><td>9.1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Leave -->
+    <div class="tab-pane fade" id="leave">
+      <h5>Leave Management</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Status</th><th>Balance</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rohit Sharma</td><td>CL</td><td>2025-06-01</td><td>2025-06-02</td><td>Approved</td><td>10</td></tr>
+          <tr><td>Priya Singh</td><td>SL</td><td>2025-06-05</td><td>2025-06-06</td><td>Pending</td><td>8</td></tr>
+          <tr><td>Amit Kumar</td><td>CL</td><td>2025-06-07</td><td>2025-06-07</td><td>Rejected</td><td>12</td></tr>
+          <tr><td>Simran Kaur</td><td>EL</td><td>2025-06-10</td><td>2025-06-12</td><td>Approved</td><td>7</td></tr>
+          <tr><td>Vikas Yadav</td><td>CL</td><td>2025-06-08</td><td>2025-06-08</td><td>Approved</td><td>6</td></tr>
+          <tr><td>Neha Jain</td><td>SL</td><td>2025-06-09</td><td>2025-06-09</td><td>Pending</td><td>9</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Payroll -->
+    <div class="tab-pane fade" id="payroll">
+      <h5>Payroll Management</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Employee</th><th>Month</th><th>Gross</th><th>Deductions</th><th>Net</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rohit Sharma</td><td>May</td><td>₹80,000</td><td>₹8,000</td><td>₹72,000</td><td>Paid</td></tr>
+          <tr><td>Priya Singh</td><td>May</td><td>₹60,000</td><td>₹5,000</td><td>₹55,000</td><td>Paid</td></tr>
+          <tr><td>Amit Kumar</td><td>May</td><td>₹45,000</td><td>₹3,000</td><td>₹42,000</td><td>Paid</td></tr>
+          <tr><td>Simran Kaur</td><td>May</td><td>₹50,000</td><td>₹4,000</td><td>₹46,000</td><td>Paid</td></tr>
+          <tr><td>Vikas Yadav</td><td>May</td><td>₹38,000</td><td>₹2,000</td><td>₹36,000</td><td>Paid</td></tr>
+          <tr><td>Neha Jain</td><td>May</td><td>₹40,000</td><td>₹2,500</td><td>₹37,500</td><td>Paid</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Performance -->
+    <div class="tab-pane fade" id="performance">
+      <h5>Performance Appraisal</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Employee</th><th>Last Review</th><th>Score</th><th>Rating</th><th>Promotion</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rohit Sharma</td><td>2025-04-15</td><td>92</td><td>Excellent</td><td>Yes</td><td>Leadership</td></tr>
+          <tr><td>Priya Singh</td><td>2025-04-15</td><td>90</td><td>Excellent</td><td>No</td><td>Team Player</td></tr>
+          <tr><td>Amit Kumar</td><td>2025-04-15</td><td>82</td><td>Good</td><td>No</td><td>Learning Fast</td></tr>
+          <tr><td>Simran Kaur</td><td>2025-04-15</td><td>88</td><td>Good</td><td>No</td><td>Creative</td></tr>
+          <tr><td>Vikas Yadav</td><td>2025-04-15</td><td>76</td><td>Average</td><td>No</td><td>Improvement Needed</td></tr>
+          <tr><td>Neha Jain</td><td>2025-04-15</td><td>85</td><td>Good</td><td>No</td><td>Reliable</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Training -->
+    <div class="tab-pane fade" id="training">
+      <h5>Training & Development</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Employee</th><th>Training</th><th>Date</th><th>Status</th><th>Score</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rohit Sharma</td><td>Leadership</td><td>2025-05-10</td><td>Completed</td><td>95</td><td>Excellent</td></tr>
+          <tr><td>Priya Singh</td><td>HR Analytics</td><td>2025-05-12</td><td>Completed</td><td>88</td><td>Good</td></tr>
+          <tr><td>Amit Kumar</td><td>React.js</td><td>2025-05-15</td><td>Ongoing</td><td>-</td><td>In Progress</td></tr>
+          <tr><td>Simran Kaur</td><td>UI/UX</td><td>2025-05-18</td><td>Completed</td><td>91</td><td>Excellent</td></tr>
+          <tr><td>Vikas Yadav</td><td>Finance Tools</td><td>2025-05-20</td><td>Planned</td><td>-</td><td>Upcoming</td></tr>
+          <tr><td>Neha Jain</td><td>Customer Support</td><td>2025-05-22</td><td>Completed</td><td>87</td><td>Reliable</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Benefits -->
+    <div class="tab-pane fade" id="benefits">
+      <h5>Benefits Administration</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Employee</th><th>Health Plan</th><th>Pension</th><th>Insurance</th><th>Other Benefits</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rohit Sharma</td><td>Gold</td><td>Active</td><td>Yes</td><td>Meal Card</td><td>Enrolled</td></tr>
+          <tr><td>Priya Singh</td><td>Silver</td><td>Active</td><td>Yes</td><td>Transport</td><td>Enrolled</td></tr>
+          <tr><td>Amit Kumar</td><td>Silver</td><td>Active</td><td>No</td><td>--</td><td>Enrolled</td></tr>
+          <tr><td>Simran Kaur</td><td>Gold</td><td>Active</td><td>Yes</td><td>Meal Card</td><td>Enrolled</td></tr>
+          <tr><td>Vikas Yadav</td><td>Bronze</td><td>Inactive</td><td>No</td><td>--</td><td>Not Enrolled</td></tr>
+          <tr><td>Neha Jain</td><td>Silver</td><td>Active</td><td>Yes</td><td>Transport</td><td>Enrolled</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Analytics -->
+    <div class="tab-pane fade" id="analytics">
+      <h5>HR Analytics</h5>
+      <ul>
+        <li>Employee Turnover Rate: <b>7.5%</b></li>
+        <li>Average Tenure: <b>2.3 years</b></li>
+        <li>Gender Ratio: <b>50% Male / 50% Female</b></li>
+        <li>Open Positions: <b>3</b></li>
+        <li>Absence Rate: <b>1.8%</b></li>
+        <li>Average Performance Score: <b>87/100</b></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div id="hr">
+        
+    
+      <h2>Human Resources (HR)</h2>
+      <ul class="nav nav-tabs" id="hrTab" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#empinfo" type="button">Employee Info</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#recruit" type="button">Recruitment</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#attendance" type="button">Attendance</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#leave" type="button">Leave</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#payroll" type="button">Payroll</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#performance" type="button">Performance</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#training" type="button">Training</button></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="empinfo">
+          <h5>Employee List</h5>
+          <table class="table table-striped">
+            <thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Status</th><th>DOJ</th><th>Dept.</th></tr></thead>
+            <tbody>
+              <tr><td>Rohit Sharma</td><td>Manager</td><td>rohit@company.com</td><td><span class="badge bg-success">Active</span></td><td>2022-01-10</td><td>Admin</td></tr>
+              <tr><td>Priya Singh</td><td>HR</td><td>priya@company.com</td><td><span class="badge bg-success">Active</span></td><td>2023-03-15</td><td>HR</td></tr>
+              <tr><td>Amit Kumar</td><td>Developer</td><td>amit@company.com</td><td><span class="badge bg-warning">Probation</span></td><td>2024-01-05</td><td>IT</td></tr>
+              <tr><td>Simran Kaur</td><td>Designer</td><td>simran@company.com</td><td><span class="badge bg-success">Active</span></td><td>2021-11-22</td><td>Design</td></tr>
+              <tr><td>Vikas Yadav</td><td>Accountant</td><td>vikas@company.com</td><td><span class="badge bg-danger">Inactive</span></td><td>2020-07-18</td><td>Finance</td></tr>
+              <tr><td>Neha Jain</td><td>Support</td><td>neha@company.com</td><td><span class="badge bg-success">Active</span></td><td>2022-12-01</td><td>Support</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Baaki HR tabs (Recruitment, Attendance, Leave, Payroll, Performance, Training) bhi isi tarah bana lo, ya mujhe bolo toh main agle message me paste kar dunga! -->
+      </div>
+    </div>
+    <div id="finance">
+  <h2>Finance Management</h2>
+  <ul class="nav nav-tabs" id="financeTab" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#ledger" type="button">General Ledger</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#payable" type="button">Accounts Payable</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#receivable" type="button">Accounts Receivable</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#budget" type="button">Budgeting</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#report" type="button">Reporting</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#expense" type="button">Expense</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#asset" type="button">Assets</button></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="ledger">
+      <h5>General Ledger</h5>
+      <table class="table table-bordered">
+        <thead><tr><th>Date</th><th>Description</th><th>Debit</th><th>Credit</th></tr></thead>
+        <tbody>
+          <tr><td>2025-06-01</td><td>Opening Balance</td><td>₹2,00,000</td><td>₹0</td></tr>
+          <tr><td>2025-06-05</td><td>Sales</td><td>₹0</td><td>₹1,00,000</td></tr>
+          <tr><td>2025-06-06</td><td>Purchase</td><td>₹50,000</td><td>₹0</td></tr>
+          <tr><td>2025-06-07</td><td>Salary Payment</td><td>₹80,000</td><td>₹0</td></tr>
+          <tr><td>2025-06-08</td><td>Office Rent</td><td>₹20,000</td><td>₹0</td></tr>
+          <tr><td>2025-06-09</td><td>Interest Income</td><td>₹0</td><td>₹5,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="payable">
+      <h5>Accounts Payable</h5>
+      <table class="table table-bordered">
+        <thead><tr><th>Vendor</th><th>Invoice #</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td>ABC Supplies</td><td>INV-1001</td><td>₹30,000</td><td>2025-06-15</td><td>Pending</td><td>Raw Material</td></tr>
+          <tr><td>XYZ Traders</td><td>INV-1002</td><td>₹12,000</td><td>2025-06-18</td><td>Paid</td><td>Stationery</td></tr>
+          <tr><td>FastTech</td><td>INV-1003</td><td>₹8,000</td><td>2025-06-20</td><td>Pending</td><td>IT Support</td></tr>
+          <tr><td>PrintWorld</td><td>INV-1004</td><td>₹5,000</td><td>2025-06-22</td><td>Paid</td><td>Printing</td></tr>
+          <tr><td>CleanPro</td><td>INV-1005</td><td>₹3,500</td><td>2025-06-25</td><td>Pending</td><td>Cleaning</td></tr>
+          <tr><td>LogiTrans</td><td>INV-1006</td><td>₹7,000</td><td>2025-06-28</td><td>Pending</td><td>Logistics</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="receivable">
+      <h5>Accounts Receivable</h5>
+      <table class="table table-bordered">
+        <thead><tr><th>Customer</th><th>Invoice #</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td>ABC Ltd.</td><td>INV-2001</td><td>₹45,000</td><td>2025-06-12</td><td>Pending</td><td>Product A</td></tr>
+          <tr><td>XYZ Pvt.</td><td>INV-2002</td><td>₹30,000</td><td>2025-06-16</td><td>Paid</td><td>Product B</td></tr>
+          <tr><td>Global Corp</td><td>INV-2003</td><td>₹25,000</td><td>2025-06-18</td><td>Pending</td><td>Service</td></tr>
+          <tr><td>NextGen</td><td>INV-2004</td><td>₹15,000</td><td>2025-06-20</td><td>Paid</td><td>Consulting</td></tr>
+          <tr><td>Techies</td><td>INV-2005</td><td>₹18,000</td><td>2025-06-23</td><td>Pending</td><td>Maintenance</td></tr>
+          <tr><td>MarketPro</td><td>INV-2006</td><td>₹12,000</td><td>2025-06-27</td><td>Pending</td><td>Marketing</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="budget">
+      <h5>Budgeting & Forecasting</h5>
+      <table class="table table-bordered">
+        <thead><tr><th>Department</th><th>Budget</th><th>Spent</th><th>Remaining</th><th>FY</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>HR</td><td>₹2,00,000</td><td>₹1,10,000</td><td>₹90,000</td><td>2025-26</td><td>On Track</td></tr>
+          <tr><td>IT</td><td>₹3,00,000</td><td>₹2,10,000</td><td>₹90,000</td><td>2025-26</td><td>On Track</td></tr>
+          <tr><td>Sales</td><td>₹1,50,000</td><td>₹1,20,000</td><td>₹30,000</td><td>2025-26</td><td>Warning</td></tr>
+          <tr><td>Production</td><td>₹4,00,000</td><td>₹3,20,000</td><td>₹80,000</td><td>2025-26</td><td>On Track</td></tr>
+          <tr><td>Marketing</td><td>₹1,00,000</td><td>₹80,000</td><td>₹20,000</td><td>2025-26</td><td>On Track</td></tr>
+          <tr><td>Admin</td><td>₹80,000</td><td>₹60,000</td><td>₹20,000</td><td>2025-26</td><td>On Track</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="report">
+      <h5>Financial Reporting</h5>
+      <ul>
+        <li>Balance Sheet</li>
+        <li>Profit & Loss Statement</li>
+        <li>Cash Flow Statement</li>
+        <li>Departmental Reports</li>
+        <li>Tax Reports</li>
+        <li>Custom Reports</li>
+      </ul>
+    </div>
+    <div class="tab-pane fade" id="expense">
+      <h5>Expense Management</h5>
+      <table class="table table-bordered">
+        <thead><tr><th>Employee</th><th>Date</th><th>Type</th><th>Amount</th><th>Status</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td>Rohit Sharma</td><td>2025-06-01</td><td>Travel</td><td>₹2,500</td><td>Approved</td><td>Client Visit</td></tr>
+          <tr><td>Priya Singh</td><td>2025-06-03</td><td>Food</td><td>₹800</td><td>Pending</td><td>Meeting</td></tr>
+          <tr><td>Amit Kumar</td><td>2025-06-05</td><td>Supplies</td><td>₹1,200</td><td>Approved</td><td>Office</td></tr>
+          <tr><td>Simran Kaur</td><td>2025-06-07</td><td>Travel</td><td>₹1,800</td><td>Rejected</td><td>Design Event</td></tr>
+          <tr><td>Vikas Yadav</td><td>2025-06-09</td><td>Other</td><td>₹500</td><td>Approved</td><td>Misc</td></tr>
+          <tr><td>Neha Jain</td><td>2025-06-10</td><td>Food</td><td>₹600</td><td>Pending</td><td>Support</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="asset">
+      <h5>Asset Management</h5>
+      <table class="table table-bordered">
+        <thead><tr><th>Asset</th><th>Code</th><th>Location</th><th>Value</th><th>Status</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td>Laptop</td><td>IT-001</td><td>Delhi</td><td>₹50,000</td><td>Active</td><td>Assigned</td></tr>
+          <tr><td>Printer</td><td>IT-002</td><td>Mumbai</td><td>₹15,000</td><td>Active</td><td>Assigned</td></tr>
+          <tr><td>Projector</td><td>IT-003</td><td>Delhi</td><td>₹20,000</td><td>Inactive</td><td>Repair</td></tr>
+          <tr><td>Server</td><td>IT-004</td><td>Delhi</td><td>₹1,00,000</td><td>Active</td><td>Data Center</td></tr>
+          <tr><td>AC Unit</td><td>FAC-001</td><td>Mumbai</td><td>₹30,000</td><td>Active</td><td>Office</td></tr>
+          <tr><td>Car</td><td>VEH-001</td><td>Delhi</td><td>₹8,00,000</td><td>Active</td><td>Transport</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+</div>
+<div id="sales">
+  <h2>Sales & Marketing</h2>
+  <ul class="nav nav-tabs" id="salesTab" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#crm" type="button">CRM</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#order" type="button">Sales Orders</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#quotation" type="button">Quotations</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#campaign" type="button">Campaigns</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#analytics" type="button">Analytics</button></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="crm">
+      <h5>Customer Relationship Management</h5>
+      <table class="table table-striped">
+        <thead><tr><th>Customer</th><th>Contact</th><th>Status</th><th>Last Activity</th><th>Lead Source</th><th>Assigned To</th></tr></thead>
+        <tbody>
+          <tr><td>ABC Ltd.</td><td>abc@abc.com</td><td>Active</td><td>2025-06-09</td><td>Website</td><td>Rohit</td></tr>
+          <tr><td>XYZ Pvt.</td><td>xyz@xyz.com</td><td>Prospect</td><td>2025-06-08</td><td>Referral</td><td>Priya</td></tr>
+          <tr><td>Global Corp</td><td>global@corp.com</td><td>Active</td><td>2025-06-07</td><td>Event</td><td>Simran</td></tr>
+          <tr><td>NextGen</td><td>next@gen.com</td><td>Lead</td><td>2025-06-06</td><td>Email</td><td>Amit</td></tr>
+          <tr><td>Techies</td><td>info@techies.com</td><td>Inactive</td><td>2025-06-05</td><td>Website</td><td>Neha</td></tr>
+          <tr><td>MarketPro</td><td>contact@marketpro.com</td><td>Active</td><td>2025-06-04</td><td>Ad</td><td>Vikas</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="order">
+      <h5>Sales Order Management</h5>
+      <table class="table table-bordered">
+        <thead><tr><th>Order #</th><th>Customer</th><th>Date</th><th>Status</th><th>Amount</th><th>Salesperson</th></tr></thead>
+        <tbody>
+          <tr><td>#1001</td><td>ABC Ltd.</td><td>2025-06-01</td><td>Delivered</td><td>₹45,000</td><td>Rohit</td></tr>
+          <tr><td>#1002</td><td>XYZ Pvt.</td><td>2025-06-02</td><td>Pending</td><td>₹30,000</td><td>Priya</td></tr>
+          <tr><td>#1003</td><td>Global Corp</td><td>2025-06-03</td><td>Delivered</td><td>₹25,000</td><td>Simran</td></tr>
+          <tr><td>#1004</td><td>NextGen</td><td>2025-06-04</td><td>Cancelled</td><td>₹15,000</td><td>Amit</td></tr>
+          <tr><td>#1005</td><td>Techies</td><td>2025-06-05</td><td>Pending</td><td>₹18,000</td><td>Neha</td></tr>
+          <tr><td>#1006</td><td>MarketPro</td><td>2025-06-06</td><td>Delivered</td><td>₹12,000</td><td>Vikas</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="quotation">
+      <h5>Quotation & Invoice Management</h5>
+      <table class="table table-bordered">
+        <thead><tr><th>Quotation #</th><th>Customer</th><th>Date</th><th>Status</th><th>Amount</th><th>Salesperson</th></tr></thead>
+        <tbody>
+          <tr><td>Q-001</td><td>ABC Ltd.</td><td>2025-06-01</td><td>Accepted</td><td>₹45,000</td><td>Rohit</td></tr>
+          <tr><td>Q-002</td><td>XYZ Pvt.</td><td>2025-06-02</td><td>Pending</td><td>₹30,000</td><td>Priya</td></tr>
+          <tr><td>Q-003</td><td>Global Corp</td><td>2025-06-03</td><td>Rejected</td><td>₹25,000</td><td>Simran</td></tr>
+          <tr><td>Q-004</td><td>NextGen</td><td>2025-06-04</td><td>Accepted</td><td>₹15,000</td><td>Amit</td></tr>
+          <tr><td>Q-005</td><td>Techies</td><td>2025-06-05</td><td>Pending</td><td>₹18,000</td><td>Neha</td></tr>
+          <tr><td>Q-006</td><td>MarketPro</td><td>2025-06-06</td><td>Accepted</td><td>₹12,000</td><td>Vikas</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="campaign">
+      <h5>Marketing Campaigns</h5>
+      <table class="table table-bordered">
+        <thead><tr><th>Campaign</th><th>Type</th><th>Start</th><th>End</th><th>Status</th><th>Leads</th></tr></thead>
+        <tbody>
+          <tr><td>Summer Sale</td><td>Email</td><td>2025-06-01</td><td>2025-06-10</td><td>Active</td><td>50</td></tr>
+          <tr><td>June Offers</td><td>Social Media</td><td>2025-06-05</td><td>2025-06-15</td><td>Active</td><td>30</td></tr>
+          <tr><td>Referral Drive</td><td>Referral</td><td>2025-06-01</td><td>2025-06-30</td><td>Active</td><td>20</td></tr>
+          <tr><td>Webinar</td><td>Event</td><td>2025-06-08</td><td>2025-06-08</td><td>Completed</td><td>15</td></tr>
+          <tr><td>Ad Campaign</td><td>Ad</td><td>2025-06-03</td><td>2025-06-09</td><td>Completed</td><td>10</td></tr>
+          <tr><td>Product Launch</td><td>Event</td><td>2025-06-12</td><td>2025-06-12</td><td>Upcoming</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="analytics">
+      <h5>Sales Analytics</h5>
+      <ul>
+        <li>Total Sales This Month: <b>₹1,40,000</b></li>
+        <li>New Customers: <b>12</b></li>
+        <li>Quotations Sent: <b>18</b></li>
+        <li>Orders Delivered: <b>9</b></li>
+        <li>Active Campaigns: <b>3</b></li>
+        <li>Revenue Growth: <b>12%</b></li>
+      </ul>
+    </div>
+  </div>
+
+
+</div>
+<section  class="erp-money-group" id="financial-overview">
+  <div class="erp-money-group-title">Financial Overview</div>
+  <div class="erp-money-group-content">
+    <div class="erp-money-cards">
+      <div class="erp-card">
+        <div class="erp-card-title">Revenue</div>
+        <div class="erp-card-value">$8,811.50</div>
+        <div class="erp-card-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+      </div>
+      <div class="erp-card">
+        <div class="erp-card-title">Gross Profit</div>
+        <div class="erp-card-value">$8,652.53</div>
+        <div class="erp-card-icon"><i class="fa-solid fa-coins"></i></div>
+      </div>
+      <div class="erp-card">
+        <div class="erp-card-title">Cost of Purchase</div>
+        <div class="erp-card-value">$0.00</div>
+        <div class="erp-card-icon"><i class="fa-solid fa-credit-card"></i></div>
+      </div>
+      <div class="erp-card">
+        <div class="erp-card-title">Total Expense</div>
+        <div class="erp-card-value">$9,731</div>
+        <div class="erp-card-icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+      </div>
+    </div>
+    <div class="erp-money-graph">
+      <canvas id="financialBarChart" height="160"></canvas>
+    </div>
+  </div>
+</section>
+<div id="inventory">
+  <h2>Inventory & Supply Chain</h2>
+  <ul class="nav nav-tabs" id="inventoryTab" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tracking" type="button">Inventory Tracking</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#supplier" type="button">Suppliers</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#purchase" type="button">Purchase Orders</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#warehouse" type="button">Warehouse</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#logistics" type="button">Logistics</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#demand" type="button">Demand Planning</button></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="tracking">
+      <h5>Inventory Tracking</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Item</th><th>Stock</th><th>Warehouse</th><th>SKU</th><th>Status</th><th>Last Updated</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Laptop</td><td>45</td><td>Delhi</td><td>IT-001</td><td>In Stock</td><td>2025-06-09</td></tr>
+          <tr><td>Printer</td><td>12</td><td>Mumbai</td><td>IT-002</td><td>Low Stock</td><td>2025-06-08</td></tr>
+          <tr><td>Monitor</td><td>30</td><td>Delhi</td><td>IT-003</td><td>In Stock</td><td>2025-06-07</td></tr>
+          <tr><td>Router</td><td>20</td><td>Bangalore</td><td>IT-004</td><td>In Stock</td><td>2025-06-06</td></tr>
+          <tr><td>Keyboard</td><td>60</td><td>Mumbai</td><td>IT-005</td><td>In Stock</td><td>2025-06-05</td></tr>
+          <tr><td>Mouse</td><td>80</td><td>Delhi</td><td>IT-006</td><td>In Stock</td><td>2025-06-04</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="supplier">
+      <h5>Supplier Management</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Supplier</th><th>Contact</th><th>Location</th><th>Items Supplied</th><th>Status</th><th>Last Order</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ABC Supplies</td><td>abc@supplies.com</td><td>Delhi</td><td>Laptop, Printer</td><td>Active</td><td>2025-06-01</td></tr>
+          <tr><td>XYZ Traders</td><td>xyz@traders.com</td><td>Mumbai</td><td>Monitor, Keyboard</td><td>Active</td><td>2025-05-28</td></tr>
+          <tr><td>FastTech</td><td>fast@tech.com</td><td>Bangalore</td><td>Router, Mouse</td><td>Inactive</td><td>2025-05-25</td></tr>
+          <tr><td>PrintWorld</td><td>print@world.com</td><td>Delhi</td><td>Printer</td><td>Active</td><td>2025-05-20</td></tr>
+          <tr><td>CleanPro</td><td>clean@pro.com</td><td>Mumbai</td><td>Monitor</td><td>Active</td><td>2025-05-15</td></tr>
+          <tr><td>LogiTrans</td><td>logi@trans.com</td><td>Delhi</td><td>Router</td><td>Active</td><td>2025-05-10</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="purchase">
+      <h5>Purchase Order Management</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>PO #</th><th>Supplier</th><th>Item</th><th>Qty</th><th>Status</th><th>Date</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>PO-101</td><td>ABC Supplies</td><td>Laptop</td><td>20</td><td>Received</td><td>2025-06-01</td></tr>
+          <tr><td>PO-102</td><td>XYZ Traders</td><td>Monitor</td><td>15</td><td>Pending</td><td>2025-05-28</td></tr>
+          <tr><td>PO-103</td><td>FastTech</td><td>Router</td><td>10</td><td>Received</td><td>2025-05-25</td></tr>
+          <tr><td>PO-104</td><td>PrintWorld</td><td>Printer</td><td>8</td><td>Received</td><td>2025-05-20</td></tr>
+          <tr><td>PO-105</td><td>CleanPro</td><td>Monitor</td><td>12</td><td>Pending</td><td>2025-05-15</td></tr>
+          <tr><td>PO-106</td><td>LogiTrans</td><td>Router</td><td>9</td><td>Pending</td><td>2025-05-10</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="warehouse">
+      <h5>Warehouse Management</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Warehouse</th><th>Location</th><th>Capacity</th><th>Used</th><th>Status</th><th>Manager</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Delhi Central</td><td>Delhi</td><td>1000</td><td>850</td><td>Active</td><td>Rohit</td></tr>
+          <tr><td>Mumbai Hub</td><td>Mumbai</td><td>800</td><td>600</td><td>Active</td><td>Priya</td></tr>
+          <tr><td>Bangalore Node</td><td>Bangalore</td><td>600</td><td>400</td><td>Active</td><td>Simran</td></tr>
+          <tr><td>Delhi Mini</td><td>Delhi</td><td>300</td><td>200</td><td>Inactive</td><td>Vikas</td></tr>
+          <tr><td>Mumbai Small</td><td>Mumbai</td><td>200</td><td>150</td><td>Active</td><td>Neha</td></tr>
+          <tr><td>Bangalore Store</td><td>Bangalore</td><td>400</td><td>320</td><td>Active</td><td>Amit</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="logistics">
+      <h5>Logistics & Distribution</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Shipment</th><th>From</th><th>To</th><th>Status</th><th>Date</th><th>Carrier</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>SHP-001</td><td>Delhi Central</td><td>Mumbai Hub</td><td>Dispatched</td><td>2025-06-01</td><td>BlueDart</td></tr>
+          <tr><td>SHP-002</td><td>Mumbai Hub</td><td>Bangalore Node</td><td>In Transit</td><td>2025-06-02</td><td>DTDC</td></tr>
+          <tr><td>SHP-003</td><td>Delhi Central</td><td>Bangalore Node</td><td>Delivered</td><td>2025-06-03</td><td>FedEx</td></tr>
+          <tr><td>SHP-004</td><td>Mumbai Small</td><td>Delhi Mini</td><td>Pending</td><td>2025-06-04</td><td>BlueDart</td></tr>
+          <tr><td>SHP-005</td><td>Bangalore Store</td><td>Delhi Central</td><td>Dispatched</td><td>2025-06-05</td><td>DTDC</td></tr>
+          <tr><td>SHP-006</td><td>Delhi Mini</td><td>Mumbai Hub</td><td>Delivered</td><td>2025-06-06</td><td>FedEx</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="demand">
+      <h5>Demand Planning</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Item</th><th>Forecast Next Month</th><th>Current Stock</th><th>Reorder Level</th><th>Planned Order</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Laptop</td><td>60</td><td>45</td><td>20</td><td>20</td><td>Planned</td></tr>
+          <tr><td>Printer</td><td>20</td><td>12</td><td>10</td><td>10</td><td>Planned</td></tr>
+          <tr><td>Monitor</td><td>40</td><td>30</td><td>15</td><td>20</td><td>Planned</td></tr>
+          <tr><td>Router</td><td>25</td><td>20</td><td>10</td><td>10</td><td>Planned</td></tr>
+          <tr><td>Keyboard</td><td>80</td><td>60</td><td>30</td><td>30</td><td>Planned</td></tr>
+          <tr><td>Mouse</td><td>100</td><td>80</td><td>40</td><td>30</td><td>Planned</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="production">
+  <h2>Production & Manufacturing</h2>
+  <ul class="nav nav-tabs" id="prodTab" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#bom" type="button">BOM</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#planning" type="button">Planning</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#shopfloor" type="button">Shop Floor</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#quality" type="button">Quality</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#maintenance" type="button">Maintenance</button></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="bom">
+      <h5>Bill of Materials (BOM)</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Product</th><th>Component</th><th>Qty</th><th>Unit</th><th>Supplier</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Laptop</td><td>Motherboard</td><td>1</td><td>pcs</td><td>ABC Supplies</td><td>Available</td></tr>
+          <tr><td>Laptop</td><td>RAM 8GB</td><td>2</td><td>pcs</td><td>XYZ Traders</td><td>Available</td></tr>
+          <tr><td>Laptop</td><td>SSD 512GB</td><td>1</td><td>pcs</td><td>FastTech</td><td>Available</td></tr>
+          <tr><td>Laptop</td><td>Battery</td><td>1</td><td>pcs</td><td>CleanPro</td><td>Available</td></tr>
+          <tr><td>Laptop</td><td>Screen 15"</td><td>1</td><td>pcs</td><td>PrintWorld</td><td>Available</td></tr>
+          <tr><td>Laptop</td><td>Keyboard</td><td>1</td><td>pcs</td><td>LogiTrans</td><td>Available</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="planning">
+      <h5>Production Planning & Scheduling</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Batch</th><th>Product</th><th>Planned Qty</th><th>Start Date</th><th>End Date</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>BATCH-101</td><td>Laptop</td><td>100</td><td>2025-06-10</td><td>2025-06-15</td><td>Scheduled</td></tr>
+          <tr><td>BATCH-102</td><td>Laptop</td><td>80</td><td>2025-06-16</td><td>2025-06-20</td><td>Planned</td></tr>
+          <tr><td>BATCH-103</td><td>Printer</td><td>60</td><td>2025-06-12</td><td>2025-06-17</td><td>Ongoing</td></tr>
+          <tr><td>BATCH-104</td><td>Monitor</td><td>120</td><td>2025-06-18</td><td>2025-06-23</td><td>Planned</td></tr>
+          <tr><td>BATCH-105</td><td>Router</td><td>90</td><td>2025-06-14</td><td>2025-06-19</td><td>Scheduled</td></tr>
+          <tr><td>BATCH-106</td><td>Keyboard</td><td>150</td><td>2025-06-20</td><td>2025-06-25</td><td>Planned</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="shopfloor">
+      <h5>Shop Floor Management</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Machine</th><th>Operator</th><th>Status</th><th>Shift</th><th>Output</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>MC-01</td><td>Rohit</td><td>Running</td><td>Morning</td><td>30</td><td>OK</td></tr>
+          <tr><td>MC-02</td><td>Priya</td><td>Idle</td><td>Evening</td><td>0</td><td>Maintenance</td></tr>
+          <tr><td>MC-03</td><td>Simran</td><td>Running</td><td>Night</td><td>25</td><td>OK</td></tr>
+          <tr><td>MC-04</td><td>Amit</td><td>Running</td><td>Morning</td><td>28</td><td>OK</td></tr>
+          <tr><td>MC-05</td><td>Neha</td><td>Idle</td><td>Evening</td><td>0</td><td>Setup</td></tr>
+          <tr><td>MC-06</td><td>Vikas</td><td>Running</td><td>Night</td><td>32</td><td>OK</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="quality">
+      <h5>Quality Control</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Batch</th><th>Product</th><th>Inspected</th><th>Defects</th><th>Status</th><th>Inspector</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>BATCH-101</td><td>Laptop</td><td>100</td><td>1</td><td>Pass</td><td>Priya</td></tr>
+          <tr><td>BATCH-102</td><td>Laptop</td><td>80</td><td>0</td><td>Pass</td><td>Simran</td></tr>
+          <tr><td>BATCH-103</td><td>Printer</td><td>60</td><td>2</td><td>Fail</td><td>Rohit</td></tr>
+          <tr><td>BATCH-104</td><td>Monitor</td><td>120</td><td>0</td><td>Pass</td><td>Neha</td></tr>
+          <tr><td>BATCH-105</td><td>Router</td><td>90</td><td>1</td><td>Pass</td><td>Amit</td></tr>
+          <tr><td>BATCH-106</td><td>Keyboard</td><td>150</td><td>3</td><td>Fail</td><td>Vikas</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="maintenance">
+      <h5>Maintenance Management</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Machine</th><th>Type</th><th>Date</th><th>Status</th><th>Technician</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>MC-01</td><td>Preventive</td><td>2025-06-01</td><td>Completed</td><td>Rohit</td><td>OK</td></tr>
+          <tr><td>MC-02</td><td>Corrective</td><td>2025-06-03</td><td>Ongoing</td><td>Priya</td><td>Spare Part</td></tr>
+          <tr><td>MC-03</td><td>Preventive</td><td>2025-06-05</td><td>Completed</td><td>Simran</td><td>OK</td></tr>
+          <tr><td>MC-04</td><td>Corrective</td><td>2025-06-07</td><td>Scheduled</td><td>Amit</td><td>Setup</td></tr>
+          <tr><td>MC-05</td><td>Preventive</td><td>2025-06-09</td><td>Completed</td><td>Neha</td><td>OK</td></tr>
+          <tr><td>MC-06</td><td>Corrective</td><td>2025-06-11</td><td>Scheduled</td><td>Vikas</td><td>Parts Ordered</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="projects">
+  <h2>Projects Management</h2>
+  <ul class="nav nav-tabs" id="projectsTab" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview" type="button">Overview</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tasks" type="button">Tasks</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#milestones" type="button">Milestones</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#team" type="button">Team</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#budget" type="button">Budget</button></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="overview">
+      <h5>Project Overview</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Project</th><th>Manager</th><th>Status</th><th>Start</th><th>End</th><th>Progress</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ERP Implementation</td><td>Rohit Sharma</td><td>Ongoing</td><td>2025-05-01</td><td>2025-08-01</td><td>40%</td></tr>
+          <tr><td>Website Redesign</td><td>Simran Kaur</td><td>Ongoing</td><td>2025-04-15</td><td>2025-07-10</td><td>65%</td></tr>
+          <tr><td>Mobile App</td><td>Amit Kumar</td><td>Planned</td><td>2025-07-01</td><td>2025-10-01</td><td>0%</td></tr>
+          <tr><td>Data Migration</td><td>Priya Singh</td><td>Completed</td><td>2025-03-01</td><td>2025-05-15</td><td>100%</td></tr>
+          <tr><td>CRM Upgrade</td><td>Vikas Yadav</td><td>Ongoing</td><td>2025-05-20</td><td>2025-09-15</td><td>25%</td></tr>
+          <tr><td>Support Portal</td><td>Neha Jain</td><td>Completed</td><td>2025-01-10</td><td>2025-03-30</td><td>100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="tasks">
+      <h5>Project Tasks</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Task</th><th>Assigned To</th><th>Status</th><th>Due Date</th><th>Priority</th><th>Project</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Requirement Gathering</td><td>Priya Singh</td><td>Completed</td><td>2025-05-05</td><td>High</td><td>ERP Implementation</td></tr>
+          <tr><td>UI Design</td><td>Simran Kaur</td><td>Ongoing</td><td>2025-06-15</td><td>Medium</td><td>Website Redesign</td></tr>
+          <tr><td>API Integration</td><td>Amit Kumar</td><td>Planned</td><td>2025-07-20</td><td>High</td><td>Mobile App</td></tr>
+          <tr><td>Testing</td><td>Neha Jain</td><td>Ongoing</td><td>2025-08-01</td><td>Medium</td><td>ERP Implementation</td></tr>
+          <tr><td>Data Backup</td><td>Vikas Yadav</td><td>Completed</td><td>2025-05-10</td><td>Low</td><td>Data Migration</td></tr>
+          <tr><td>Documentation</td><td>Rohit Sharma</td><td>Ongoing</td><td>2025-07-25</td><td>Low</td><td>CRM Upgrade</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="milestones">
+      <h5>Project Milestones</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Milestone</th><th>Project</th><th>Due Date</th><th>Status</th><th>Owner</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Phase 1 Complete</td><td>ERP Implementation</td><td>2025-06-01</td><td>Completed</td><td>Rohit</td><td>On Time</td></tr>
+          <tr><td>Design Approval</td><td>Website Redesign</td><td>2025-05-30</td><td>Completed</td><td>Simran</td><td>Delayed</td></tr>
+          <tr><td>App Launch</td><td>Mobile App</td><td>2025-10-01</td><td>Planned</td><td>Amit</td><td>--</td></tr>
+          <tr><td>Migration Finish</td><td>Data Migration</td><td>2025-05-15</td><td>Completed</td><td>Priya</td><td>On Time</td></tr>
+          <tr><td>CRM Go-Live</td><td>CRM Upgrade</td><td>2025-09-15</td><td>Planned</td><td>Vikas</td><td>--</td></tr>
+          <tr><td>Portal Release</td><td>Support Portal</td><td>2025-03-30</td><td>Completed</td><td>Neha</td><td>On Time</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="team">
+      <h5>Project Team</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Name</th><th>Role</th><th>Email</th><th>Project</th><th>Status</th><th>Contact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rohit Sharma</td><td>Manager</td><td>rohit@company.com</td><td>ERP Implementation</td><td>Active</td><td>9876543210</td></tr>
+          <tr><td>Simran Kaur</td><td>Designer</td><td>simran@company.com</td><td>Website Redesign</td><td>Active</td><td>9876543211</td></tr>
+          <tr><td>Amit Kumar</td><td>Developer</td><td>amit@company.com</td><td>Mobile App</td><td>Active</td><td>9876543212</td></tr>
+          <tr><td>Priya Singh</td><td>HR</td><td>priya@company.com</td><td>Data Migration</td><td>Active</td><td>9876543213</td></tr>
+          <tr><td>Vikas Yadav</td><td>Accountant</td><td>vikas@company.com</td><td>CRM Upgrade</td><td>Active</td><td>9876543214</td></tr>
+          <tr><td>Neha Jain</td><td>Support</td><td>neha@company.com</td><td>Support Portal</td><td>Active</td><td>9876543215</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="budget">
+      <h5>Project Budget</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Project</th><th>Budget</th><th>Spent</th><th>Remaining</th><th>Status</th><th>Manager</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ERP Implementation</td><td>₹5,00,000</td><td>₹2,00,000</td><td>₹3,00,000</td><td>On Track</td><td>Rohit</td></tr>
+          <tr><td>Website Redesign</td><td>₹2,00,000</td><td>₹1,50,000</td><td>₹50,000</td><td>On Track</td><td>Simran</td></tr>
+          <tr><td>Mobile App</td><td>₹4,00,000</td><td>₹0</td><td>₹4,00,000</td><td>Planned</td><td>Amit</td></tr>
+          <tr><td>Data Migration</td><td>₹1,00,000</td><td>₹1,00,000</td><td>₹0</td><td>Completed</td><td>Priya</td></tr>
+          <tr><td>CRM Upgrade</td><td>₹1,50,000</td><td>₹40,000</td><td>₹1,10,000</td><td>On Track</td><td>Vikas</td></tr>
+          <tr><td>Support Portal</td><td>₹80,000</td><td>₹80,000</td><td>₹0</td><td>Completed</td><td>Neha</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="customer">
+  <h2>Customer Service</h2>
+  <ul class="nav nav-tabs" id="customerTab" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tickets" type="button">Tickets</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#requests" type="button">Requests</a></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#feedback" type="button">Feedback</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#faq" type="button">FAQ</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#sla" type="button">SLA</button></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="tickets">
+      <h5>Support Tickets</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Ticket #</th><th>Customer</th><th>Issue</th><th>Status</th><th>Assigned To</th><th>Date</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>TK-1001</td><td>ABC Ltd.</td><td>Login Issue</td><td>Open</td><td>Neha</td><td>2025-06-09</td></tr>
+          <tr><td>TK-1002</td><td>XYZ Pvt.</td><td>Payment Failed</td><td>In Progress</td><td>Vikas</td><td>2025-06-08</td></tr>
+          <tr><td>TK-1003</td><td>Global Corp</td><td>Bug Report</td><td>Resolved</td><td>Simran</td><td>2025-06-07</td></tr>
+          <tr><td>TK-1004</td><td>NextGen</td><td>Account Locked</td><td>Open</td><td>Priya</td><td>2025-06-06</td></tr>
+          <tr><td>TK-1005</td><td>Techies</td><td>Feature Request</td><td>Closed</td><td>Amit</td><td>2025-06-05</td></tr>
+          <tr><td>TK-1006</td><td>MarketPro</td><td>Password Reset</td><td>Resolved</td><td>Rohit</td><td>2025-06-04</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="requests">
+      <h5>Customer Requests</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Request #</th><th>Customer</th><th>Type</th><th>Status</th><th>Date</th><th>Handled By</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>REQ-101</td><td>ABC Ltd.</td><td>Upgrade Plan</td><td>Pending</td><td>2025-06-01</td><td>Neha</td></tr>
+          <tr><td>REQ-102</td><td>XYZ Pvt.</td><td>Cancel Subscription</td><td>Completed</td><td>2025-06-02</td><td>Vikas</td></tr>
+          <tr><td>REQ-103</td><td>Global Corp</td><td>Data Export</td><td>In Progress</td><td>2025-06-03</td><td>Simran</td></tr>
+          <tr><td>REQ-104</td><td>NextGen</td><td>Account Reactivation</td><td>Completed</td><td>2025-06-04</td><td>Priya</td></tr>
+          <tr><td>REQ-105</td><td>Techies</td><td>Custom Report</td><td>Pending</td><td>2025-06-05</td><td>Amit</td></tr>
+          <tr><td>REQ-106</td><td>MarketPro</td><td>Invoice Copy</td><td>Completed</td><td>2025-06-06</td><td>Rohit</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="feedback">
+      <h5>Customer Feedback</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Feedback #</th><th>Customer</th><th>Rating</th><th>Comments</th><th>Date</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>FB-001</td><td>ABC Ltd.</td><td>5</td><td>Great support!</td><td>2025-06-01</td><td>Reviewed</td></tr>
+          <tr><td>FB-002</td><td>XYZ Pvt.</td><td>4</td><td>Quick response.</td><td>2025-06-02</td><td>Reviewed</td></tr>
+          <tr><td>FB-003</td><td>Global Corp</td><td>3</td><td>Average experience.</td><td>2025-06-03</td><td>Reviewed</td></tr>
+          <tr><td>FB-004</td><td>NextGen</td><td>5</td><td>Very helpful!</td><td>2025-06-04</td><td>Reviewed</td></tr>
+          <tr><td>FB-005</td><td>Techies</td><td>2</td><td>Could be better.</td><td>2025-06-05</td><td>Reviewed</td></tr>
+          <tr><td>FB-006</td><td>MarketPro</td><td>4</td><td>Good service.</td><td>2025-06-06</td><td>Reviewed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="faq">
+      <h5>Frequently Asked Questions</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Question</th><th>Answer</th><th>Category</th><th>Status</th><th>Last Updated</th><th>Views</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>How to reset password?</td><td>Go to settings &gt; reset password.</td><td>Account</td><td>Active</td><td>2025-06-01</td><td>120</td></tr>
+          <tr><td>How to upgrade plan?</td><td>Contact support for upgrade.</td><td>Billing</td><td>Active</td><td>2025-06-02</td><td>80</td></tr>
+          <tr><td>How to export data?</td><td>Use the export feature in dashboard.</td><td>Data</td><td>Active</td><td>2025-06-03</td><td>60</td></tr>
+          <tr><td>How to contact support?</td><td>Email or chat with us.</td><td>Support</td><td>Active</td><td>2025-06-04</td><td>150</td></tr>
+          <tr><td>How to cancel subscription?</td><td>Go to billing &gt; cancel.</td><td>Billing</td><td>Active</td><td>2025-06-05</td><td>40</td></tr>
+          <tr><td>How to get invoice?</td><td>Download from billing section.</td><td>Billing</td><td>Active</td><td>2025-06-06</td><td>55</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="sla">
+      <h5>Service Level Agreements (SLA)</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>SLA Name</th><th>Type</th><th>Target</th><th>Current</th><th>Status</th><th>Owner</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Response Time</td><td>Support</td><td>2 hrs</td><td>1.5 hrs</td><td>On Track</td><td>Neha</td></tr>
+          <tr><td>Resolution Time</td><td>Support</td><td>24 hrs</td><td>20 hrs</td><td>On Track</td><td>Vikas</td></tr>
+          <tr><td>Uptime</td><td>Technical</td><td>99.9%</td><td>99.95%</td><td>On Track</td><td>Simran</td></tr>
+          <tr><td>First Contact</td><td>Support</td><td>1 hr</td><td>0.8 hr</td><td>On Track</td><td>Priya</td></tr>
+          <tr><td>Escalation</td><td>Support</td><td>5%</td><td>3%</td><td>On Track</td><td>Amit</td></tr>
+          <tr><td>Customer Satisfaction</td><td>Support</td><td>90%</td><td>92%</td><td>On Track</td><td>Rohit</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="reporting">
+  <h2>Reporting & Analytics</h2>
+  <ul class="nav nav-tabs" id="reportingTab" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#financial" type="button">Financial</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#hr" type="button">HR</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#sales" type="button">Sales</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#inventory" type="button">Inventory</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#custom" type="button">Custom</button></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="financial">
+      <h5>Financial Reports</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Report</th><th>Period</th><th>Status</th><th>Prepared By</th><th>Date</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Balance Sheet</td><td>Q1 2025</td><td>Completed</td><td>Vikas</td><td>2025-04-10</td><td>Audited</td></tr>
+          <tr><td>Profit & Loss</td><td>Q1 2025</td><td>Completed</td><td>Vikas</td><td>2025-04-10</td><td>Audited</td></tr>
+          <tr><td>Cash Flow</td><td>Q1 2025</td><td>Completed</td><td>Vikas</td><td>2025-04-10</td><td>Audited</td></tr>
+          <tr><td>Tax Report</td><td>FY 2024-25</td><td>Pending</td><td>Vikas</td><td>2025-06-01</td><td>Filing</td></tr>
+          <tr><td>Budget vs Actual</td><td>2025</td><td>Completed</td><td>Priya</td><td>2025-05-20</td><td>Reviewed</td></tr>
+          <tr><td>Departmental Expense</td><td>2025</td><td>Completed</td><td>Priya</td><td>2025-05-22</td><td>Reviewed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="hr">
+      <h5>HR Reports</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Report</th><th>Period</th><th>Status</th><th>Prepared By</th><th>Date</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Attendance Summary</td><td>May 2025</td><td>Completed</td><td>Priya</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Leave Report</td><td>May 2025</td><td>Completed</td><td>Priya</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Payroll Summary</td><td>May 2025</td><td>Completed</td><td>Priya</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Recruitment</td><td>2025</td><td>Completed</td><td>Priya</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Turnover Rate</td><td>2025</td><td>Completed</td><td>Priya</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Performance</td><td>2025</td><td>Completed</td><td>Priya</td><td>2025-06-01</td><td>OK</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="sales">
+      <h5>Sales Reports</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Report</th><th>Period</th><th>Status</th><th>Prepared By</th><th>Date</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Sales Summary</td><td>May 2025</td><td>Completed</td><td>Rohit</td><td>2025-06-01</td><td>Reviewed</td></tr>
+          <tr><td>Order Report</td><td>May 2025</td><td>Completed</td><td>Rohit</td><td>2025-06-01</td><td>Reviewed</td></tr>
+          <tr><td>Quotation Report</td><td>May 2025</td><td>Completed</td><td>Rohit</td><td>2025-06-01</td><td>Reviewed</td></tr>
+          <tr><td>Campaign Analysis</td><td>May 2025</td><td>Completed</td><td>Simran</td><td>2025-06-01</td><td>Reviewed</td></tr>
+          <tr><td>Lead Conversion</td><td>May 2025</td><td>Completed</td><td>Simran</td><td>2025-06-01</td><td>Reviewed</td></tr>
+          <tr><td>Customer Feedback</td><td>May 2025</td><td>Completed</td><td>Neha</td><td>2025-06-01</td><td>Reviewed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="tab-pane fade" id="inventory">
+      <h5>Inventory Reports</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Report</th><th>Period</th><th>Status</th><th>Prepared By</th><th>Date</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Stock Summary</td><td>May 2025</td><td>Completed</td><td>Vikas</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Reorder Report</td><td>May 2025</td><td>Completed</td><td>Vikas</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Supplier Analysis</td><td>May 2025</td><td>Completed</td><td>Vikas</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Warehouse Utilization</td><td>May 2025</td><td>Completed</td><td>Vikas</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Logistics</td><td>May 2025</td><td>Completed</td><td>Vikas</td><td>2025-06-01</td><td>OK</td></tr>
+          <tr><td>Demand Planning</td><td>May 2025</td><td>Completed</td><td>Vikas</td><td>2025-06-01</td><td>OK</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="custom">
+      <h5>Custom Reports</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Report Name</th><th>Type</th><th>Status</th><th>Created By</th><th>Date</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Custom HR Analysis</td><td>HR</td><td>Completed</td><td>Priya</td><td>2025-06-01</td><td>Custom</td></tr>
+          <tr><td>Custom Sales Dashboard</td><td>Sales</td><td>Completed</td><td>Rohit</td><td>2025-06-01</td><td>Custom</td></tr>
+          <tr><td>Custom Inventory View</td><td>Inventory</td><td>Completed</td><td>Vikas</td><td>2025-06-01</td><td>Custom</td></tr>
+          <tr><td>Custom Financials</td><td>Finance</td><td>Completed</td><td>Vikas</td><td>2025-06-01</td><td>Custom</td></tr>
+          <tr><td>Custom Project Report</td><td>Projects</td><td>Completed</td><td>Simran</td><td>2025-06-01</td><td>Custom</td></tr>
+          <tr><td>Custom SLA Analysis</td><td>Customer Service</td><td>Completed</td><td>Neha</td><td>2025-06-01</td><td>Custom</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="communication">
+  <h2>Communication</h2>
+  <ul class="nav nav-tabs" id="commTab" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#announcements" type="button">Announcements</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#messages" type="button">Messages</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#meetings" type="button">Meetings</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#calendar" type="button">Calendar</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#files" type="button">Files</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#notifications" type="button">Notifications</button></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="announcements">
+      <h5>Company Announcements</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Date</th><th>Title</th><th>Department</th><th>By</th><th>Status</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2025-06-09</td><td>ERP Launch</td><td>IT</td><td>Rohit</td><td>Active</td><td>ERP system live</td></tr>
+          <tr><td>2025-06-08</td><td>Holiday Notice</td><td>HR</td><td>Priya</td><td>Active</td><td>Friday off</td></tr>
+          <tr><td>2025-06-07</td><td>Policy Update</td><td>Admin</td><td>Vikas</td><td>Active</td><td>Leave policy revised</td></tr>
+          <tr><td>2025-06-06</td><td>Office Renovation</td><td>Admin</td><td>Simran</td><td>Closed</td><td>Work completed</td></tr>
+          <tr><td>2025-06-05</td><td>Team Outing</td><td>HR</td><td>Priya</td><td>Closed</td><td>Photos shared</td></tr>
+          <tr><td>2025-06-04</td><td>App Update</td><td>IT</td><td>Amit</td><td>Active</td><td>Version 2.1 released</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="messages">
+      <h5>Internal Messages</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>From</th><th>To</th><th>Subject</th><th>Date</th><th>Status</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rohit</td><td>Priya</td><td>Meeting Request</td><td>2025-06-09</td><td>Unread</td><td>Reply</td></tr>
+          <tr><td>Simran</td><td>Amit</td><td>Design Review</td><td>2025-06-08</td><td>Read</td><td>Reply</td></tr>
+          <tr><td>Vikas</td><td>Neha</td><td>Invoice Query</td><td>2025-06-07</td><td>Read</td><td>Reply</td></tr>
+          <tr><td>Priya</td><td>Rohit</td><td>Leave Approval</td><td>2025-06-06</td><td>Unread</td><td>Reply</td></tr>
+          <tr><td>Amit</td><td>Simran</td><td>API Update</td><td>2025-06-05</td><td>Read</td><td>Reply</td></tr>
+          <tr><td>Neha</td><td>Vikas</td><td>Support Ticket</td><td>2025-06-04</td><td>Unread</td><td>Reply</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="meetings">
+      <h5>Meetings & Video Calls</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Title</th><th>Date</th><th>Time</th><th>Organizer</th><th>Status</th><th>Participants</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ERP Training</td><td>2025-06-10</td><td>10:00 AM</td><td>Rohit</td><td>Scheduled</td><td>All Staff</td></tr>
+          <tr><td>Design Review</td><td>2025-06-11</td><td>2:00 PM</td><td>Simran</td><td>Scheduled</td><td>Design Team</td></tr>
+          <tr><td>Sales Meeting</td><td>2025-06-12</td><td>11:00 AM</td><td>Priya</td><td>Scheduled</td><td>Sales Team</td></tr>
+          <tr><td>Support Sync</td><td>2025-06-13</td><td>4:00 PM</td><td>Neha</td><td>Scheduled</td><td>Support Team</td></tr>
+          <tr><td>Budget Review</td><td>2025-06-14</td><td>3:00 PM</td><td>Vikas</td><td>Scheduled</td><td>Finance Team</td></tr>
+          <tr><td>App Demo</td><td>2025-06-15</td><td>5:00 PM</td><td>Amit</td><td>Scheduled</td><td>IT Team</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="calendar">
+      <h5>Shared Calendar</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Date</th><th>Event</th><th>Department</th><th>Time</th><th>Status</th><th>Owner</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2025-06-10</td><td>ERP Training</td><td>IT</td><td>10:00 AM</td><td>Upcoming</td><td>Rohit</td></tr>
+          <tr><td>2025-06-11</td><td>Design Review</td><td>Design</td><td>2:00 PM</td><td>Upcoming</td><td>Simran</td></tr>
+          <tr><td>2025-06-12</td><td>Sales Meeting</td><td>Sales</td><td>11:00 AM</td><td>Upcoming</td><td>Priya</td></tr>
+          <tr><td>2025-06-13</td><td>Support Sync</td><td>Support</td><td>4:00 PM</td><td>Upcoming</td><td>Neha</td></tr>
+          <tr><td>2025-06-14</td><td>Budget Review</td><td>Finance</td><td>3:00 PM</td><td>Upcoming</td><td>Vikas</td></tr>
+          <tr><td>2025-06-15</td><td>App Demo</td><td>IT</td><td>5:00 PM</td><td>Upcoming</td><td>Amit</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="files">
+      <h5>Shared Files</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>File Name</th><th>Type</th><th>Uploaded By</th><th>Date</th><th>Size</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ERP_Guide.pdf</td><td>PDF</td><td>Rohit</td><td>2025-06-09</td><td>2MB</td><td>Active</td></tr>
+          <tr><td>Design_Mockup.png</td><td>Image</td><td>Simran</td><td>2025-06-08</td><td>1.5MB</td><td>Active</td></tr>
+          <tr><td>Sales_Report.xlsx</td><td>Excel</td><td>Priya</td><td>2025-06-07</td><td>800KB</td><td>Active</td></tr>
+          <tr><td>Support_FAQ.docx</td><td>Word</td><td>Neha</td><td>2025-06-06</td><td>500KB</td><td>Active</td></tr>
+          <tr><td>Budget_2025.xls</td><td>Excel</td><td>Vikas</td><td>2025-06-05</td><td>1.2MB</td><td>Active</td></tr>
+          <tr><td>App_Release_Notes.txt</td><td>Text</td><td>Amit</td><td>2025-06-04</td><td>200KB</td><td>Active</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="notifications">
+      <h5>Notifications</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Date</th><th>Type</th><th>Message</th><th>Status</th><th>User</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2025-06-09</td><td>System</td><td>ERP Launched</td><td>Unread</td><td>All</td><td>View</td></tr>
+          <tr><td>2025-06-08</td><td>Reminder</td><td>Meeting at 10am</td><td>Read</td><td>All</td><td>View</td></tr>
+          <tr><td>2025-06-07</td><td>Alert</td><td>Password Expiry</td><td>Unread</td><td>Rohit</td><td>View</td></tr>
+          <tr><td>2025-06-06</td><td>Update</td><td>App Version 2.1</td><td>Read</td><td>Amit</td><td>View</td></tr>
+          <tr><td>2025-06-05</td><td>Info</td><td>Policy Updated</td><td>Read</td><td>All</td><td>View</td></tr>
+          <tr><td>2025-06-04</td><td>Support</td><td>Ticket Resolved</td><td>Unread</td><td>Neha</td><td>View</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let isLoggedIn = false;
+    function showPage(page) {
+      document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.classList.remove('sidebar-active');
+      });
+      if(page !== 'login' && page !== 'signup') {
+        let sidebarLinks = document.querySelectorAll('.sidebar-link');
+        sidebarLinks.forEach(link => {
+          if(link.textContent.trim().toLowerCase() === page.toLowerCase() ||
+            (page === 'customer' && link.textContent.trim().toLowerCase().includes('customer')) ||
+            (page === 'sales' && link.textContent.trim().toLowerCase().includes('sales')) ||
+            (page === 'reporting' && link.textContent.trim().toLowerCase().includes('reporting')) ||
+            (page === 'communication' && link.textContent.trim().toLowerCase().includes('communication')) ||
+            (page === 'production' && link.textContent.trim().toLowerCase().includes('production'))
+          ) {
+            link.classList.add('sidebar-active');
+          }
+        });
+      }
+      document.getElementById('sidebar-wrapper').style.display = (page === 'login' || page === 'signup') ? 'none' : 'block';
+      const contentDiv = document.getElementById('main-content');
+      const template = document.querySelector(`#templates > #${page}`);
+      if(template) {
+        contentDiv.innerHTML = template.innerHTML;
+      } else {
+        contentDiv.innerHTML = "<h3>Page Not Found</h3>";
+      }
+    }
+    function handleLogin(e) {
+      e.preventDefault();
+      isLoggedIn = true;
+      showPage('dashboard');
+      return false;
+    }
+    function handleSignup(e) {
+      e.preventDefault();
+      isLoggedIn = true;
+      showPage('dashboard');
+      return false;
+    }
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark-mode');
+      const icon = document.getElementById('darkModeIcon');
+      if(document.documentElement.classList.contains('dark-mode')) {
+        icon.classList.remove('bi-moon-fill');
+        icon.classList.add('bi-sun-fill');
+        document.getElementById('darkModeToggle').innerHTML = '<span id="darkModeIcon" class="bi bi-sun-fill"></span> Light Mode';
+        localStorage.setItem('erp-dark-mode', 'on');
+      } else {
+        icon.classList.remove('bi-sun-fill');
+        icon.classList.add('bi-moon-fill');
+        document.getElementById('darkModeToggle').innerHTML = '<span id="darkModeIcon" class="bi bi-moon-fill"></span> Dark Mode';
+        localStorage.setItem('erp-dark-mode', 'off');
+      }
+    }
+    window.onload= function() {
+      showPage('login');
+      if(localStorage.getItem('erp-dark-mode') === 'on') {
+        document.documentElement.classList.add('darkmode');
+document.getElementById('darkModeToggle').onclick = function() {
+  const isDark = document.documentElement.classList.toggle('darkmode');
+  localStorage.setItem('erp-dark-mode', isDark ? 'on' : 'off');
+  this.innerHTML = isDark
+    ? '<span id="darkModeIcon" class="bi bi-sun-fill"></span> Light Mode'
+    : '<span id="darkModeIcon" class="bi bi-moon-fill"></span> Dark Mode';
+};
+      }
+      
+    }
+  </script>
+  
+</body>
+</html>
