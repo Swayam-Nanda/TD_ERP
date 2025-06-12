@@ -5,8 +5,16 @@
     <title>ERP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../global.css" />
-    <link rel="stylesheet" href="pay.css" />
+    <link rel="stylesheet" href="lm.css" />
   </head>
   <body>
     <div class="layout">
@@ -142,12 +150,10 @@
                 <a href="att.html" class="sidebar-dropdown-link"
                   >Attendance Management</a
                 >
-                <a href="lm.html" class="sidebar-dropdown-link"
+                <a href="lm.html" class="sidebar-dropdown-link active"
                   >Leave Management</a
                 >
-                <a href="pay.html" class="sidebar-dropdown-link active"
-                  >Payroll</a
-                >
+                <a href="pay.html" class="sidebar-dropdown-link">Payroll</a>
                 <a href="pa.html" class="sidebar-dropdown-link"
                   >Performance Analysis</a
                 >
@@ -631,80 +637,298 @@
           </div>
         </div>
         <!-- Main content -->
-        <div class="payroll-container">
-          <div class="top-bar">
-            <h2>📋 Payroll Management</h2>
-            <button class="toggle-add-btn" onclick="toggleAddForm()">
-              + Add
-            </button>
+        <div class="container my-5">
+          <div class="card p-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="card-header p-0 border-0 bg-transparent">
+                <span
+                  ><i class="fas fa-clipboard-list me-2 text-primary"></i>Leave
+                  Management</span
+                >
+              </div>
+              <button
+                class="btn btn-success btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#addModal"
+              >
+                <i class="fas fa-plus me-1"></i>Add
+              </button>
+            </div>
+            <div class="d-flex gap-2 flex-wrap controls mb-2">
+              <input
+                type="text"
+                id="searchInput"
+                class="form-control form-control-sm"
+                placeholder="Search name"
+              />
+              <select id="filterType" class="form-select form-select-sm">
+                <option value="">All Types</option>
+                <option value="CL">CL</option>
+                <option value="SL">SL</option>
+                <option value="EL">EL</option>
+              </select>
+              <button class="btn btn-sm btn-pdf" onclick="downloadPDF()">
+                <i class="fas fa-file-pdf me-1"></i>Download PDF
+              </button>
+            </div>
+            <div class="card-body pt-3">
+              <div class="table-responsive">
+                <table
+                  class="table table-hover align-middle text-center"
+                  id="leaveTable"
+                >
+                  <thead>
+                    <tr>
+                      <th>Employee</th>
+                      <th>Type</th>
+                      <th>From</th>
+                      <th>To</th>
+                      <th>Status</th>
+                      <th>Balance</th>
+                      <th>Edit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Rohit Sharma</td>
+                      <td>CL</td>
+                      <td>2025-06-01</td>
+                      <td>2025-06-02</td>
+                      <td><span class="badge approved">Approved</span></td>
+                      <td>10</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Priya Singh</td>
+                      <td>SL</td>
+                      <td>2025-06-05</td>
+                      <td>2025-06-06</td>
+                      <td><span class="badge pending">Pending</span></td>
+                      <td>8</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Amit Kumar</td>
+                      <td>CL</td>
+                      <td>2025-06-07</td>
+                      <td>2025-06-07</td>
+                      <td><span class="badge rejected">Rejected</span></td>
+                      <td>12</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Simran Kaur</td>
+                      <td>EL</td>
+                      <td>2025-06-10</td>
+                      <td>2025-06-12</td>
+                      <td><span class="badge approved">Approved</span></td>
+                      <td>7</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Vikas Yadav</td>
+                      <td>CL</td>
+                      <td>2025-06-08</td>
+                      <td>2025-06-08</td>
+                      <td><span class="badge approved">Approved</span></td>
+                      <td>6</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Neha Jain</td>
+                      <td>SL</td>
+                      <td>2025-06-09</td>
+                      <td>2025-06-09</td>
+                      <td><span class="badge pending">Pending</span></td>
+                      <td>9</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Karan Verma</td>
+                      <td>EL</td>
+                      <td>2025-06-15</td>
+                      <td>2025-06-18</td>
+                      <td><span class="badge approved">Approved</span></td>
+                      <td>5</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Anita Mehra</td>
+                      <td>CL</td>
+                      <td>2025-06-13</td>
+                      <td>2025-06-13</td>
+                      <td><span class="badge pending">Pending</span></td>
+                      <td>11</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Rajesh Khanna</td>
+                      <td>SL</td>
+                      <td>2025-06-14</td>
+                      <td>2025-06-15</td>
+                      <td><span class="badge rejected">Rejected</span></td>
+                      <td>4</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Sneha Das</td>
+                      <td>CL</td>
+                      <td>2025-06-11</td>
+                      <td>2025-06-11</td>
+                      <td><span class="badge approved">Approved</span></td>
+                      <td>8</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Manoj Tiwari</td>
+                      <td>EL</td>
+                      <td>2025-06-20</td>
+                      <td>2025-06-22</td>
+                      <td><span class="badge pending">Pending</span></td>
+                      <td>10</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary edit-btn">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <form class="add-form" id="addForm" onsubmit="addRow(event)">
-            <input type="text" id="name" placeholder="Employee" required />
-            <input type="text" id="month" placeholder="Month" required />
-            <input type="text" id="gross" placeholder="Gross" required />
-            <input
-              type="text"
-              id="deductions"
-              placeholder="Deductions"
-              required
-            />
-            <input type="text" id="net" placeholder="Net" required />
-            <button type="submit">Add</button>
-          </form>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Employee</th>
-                <th>Month</th>
-                <th>Gross</th>
-                <th>Deductions</th>
-                <th>Net</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="payrollBody">
-              <tr>
-                <td>Rohit Sharma</td>
-                <td>May</td>
-                <td>₹80,000</td>
-                <td>₹8,000</td>
-                <td>₹72,000</td>
-                <td><span class="status-paid">Paid</span></td>
-                <td>
-                  <button class="edit-btn" onclick="editRow(this)">Edit</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Priya Singh</td>
-                <td>May</td>
-                <td>₹60,000</td>
-                <td>₹5,000</td>
-                <td>₹55,000</td>
-                <td><span class="status-paid">Paid</span></td>
-                <td>
-                  <button class="edit-btn" onclick="editRow(this)">Edit</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Amit Kumar</td>
-                <td>May</td>
-                <td>₹45,000</td>
-                <td>₹3,000</td>
-                <td>₹42,000</td>
-                <td><span class="status-paid">Paid</span></td>
-                <td>
-                  <button class="edit-btn" onclick="editRow(this)">Edit</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- Add Modal -->
+        <div
+          class="modal fade"
+          id="addModal"
+          tabindex="-1"
+          aria-labelledby="addModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <form id="addEmployeeForm" class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">
+                  Add Employee Leave
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-2">
+                  <label class="form-label">Employee Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="employee"
+                    required
+                  />
+                </div>
+                <div class="mb-2">
+                  <label class="form-label">Type</label>
+                  <select class="form-select" name="type" required>
+                    <option value="">Select Type</option>
+                    <option value="CL">CL</option>
+                    <option value="SL">SL</option>
+                    <option value="EL">EL</option>
+                  </select>
+                </div>
+                <div class="mb-2">
+                  <label class="form-label">From</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    name="from"
+                    required
+                  />
+                </div>
+                <div class="mb-2">
+                  <label class="form-label">To</label>
+                  <input type="date" class="form-control" name="to" required />
+                </div>
+                <div class="mb-2">
+                  <label class="form-label">Status</label>
+                  <select class="form-select" name="status" required>
+                    <option value="approved">Approved</option>
+                    <option value="pending">Pending</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </div>
+                <div class="mb-2">
+                  <label class="form-label">Balance</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="balance"
+                    min="0"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Add</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
     <script src="../global.js"></script>
-    <script src="pay.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script src="lm.js"></script>
   </body>
 </html>

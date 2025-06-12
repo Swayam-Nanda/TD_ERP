@@ -1,0 +1,81 @@
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: scale(1.01);
+}
+.card-header {
+  background: transparent;
+  border-bottom: none;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-primary);
+}
+.text-primary {
+  color: #2b6cb0;
+}
+.controls .form-control,
+.controls .form-select {
+  max-width: 200px;
+}
+
+.table th {
+  text-align: center;
+  vertical-align: middle;
+  background-color: var(--card-bg);
+  color: var(--text-secondary);
+}
+.table td {
+  text-align: center;
+  vertical-align: middle;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+.table-hover tbody tr:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+.table tbody tr {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(60, 72, 88, 0.04);
+  transition: all 0.3s ease;
+}
+.table tbody tr:hover {
+  box-shadow: 0 4px 20px rgba(66, 153, 225, 0.25);
+  transform: translateY(-2px);
+}
+.badge {
+  transition: transform 0.3s;
+}
+.badge:hover {
+  transform: scale(1.1);
+}
+.badge.approved {
+  background-color: #d1f7d6;
+  color: #198754;
+}
+.badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+.badge.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.btn-pdf {
+  background-color: #6366f1;
+  color: white;
+}
+.btn-pdf:hover {
+  background-color: #4f46e5;
+}
+.modal-content {
+  background: var(--bg-color);
+}
