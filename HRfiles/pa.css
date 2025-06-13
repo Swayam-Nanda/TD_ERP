@@ -1,0 +1,73 @@
+.appraisal-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  margin: 50px auto;
+  max-width: 1200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.text-dark {
+  color: var(--text-primary) !important;
+  font-family: var(--font-primary);
+}
+.appraisal-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 30px rgba(100, 180, 255, 0.4);
+}
+
+.table-hover tbody tr {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+tr,
+th,
+td {
+  background: var(--card-bg) !important;
+}
+th {
+  color: var(--text-secondary) !important;
+}
+td {
+  color: var(--text-primary) !important;
+}
+.table-hover tbody tr:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+.badge-excellent {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.badge-good {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badge-average {
+  background-color: #fcd34d;
+  color: #78350f;
+}
+
+.badge-promotion-yes {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-promotion-no {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.btn-add {
+  margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding: 4px;
+}

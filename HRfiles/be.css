@@ -1,0 +1,48 @@
+.card {
+  background: var(--card-bg);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 15px 4px #90caf9;
+}
+.table-hover tbody tr:hover {
+  box-shadow: 0 0 10px 2px #90caf9;
+  position: relative;
+  z-index: 1;
+}
+.badge.bg-success {
+  background-color: #198754 !important;
+}
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+}
+.section-title {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+.title-icon {
+  font-size: 20px;
+  color: #6c63ff;
+  margin-right: 10px;
+}
+tr,
+th,
+td {
+  background: var(--card-bg) !important;
+}
+th {
+  color: var(--text-secondary) !important;
+}
+td {
+  color: var(--text-primary) !important;
+}
+.modal-content {
+  background: var(--bg-color);
+}
